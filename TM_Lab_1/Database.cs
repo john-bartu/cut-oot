@@ -26,7 +26,7 @@ class Database
                  .Select(x => new Currency(x))
                  .ToArray();
 
-
+            currency_dictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
             foreach (var currency in currences)
             {
                 if (currency_dictionary.ContainsKey(currency.Code))
