@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Xml.Linq;
 using System.Text;
-
 namespace TM_Lab_1
 {
     enum Command
