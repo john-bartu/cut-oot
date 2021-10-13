@@ -1,38 +1,17 @@
-using System;
-
 class Account
 {
-
-    Currency currency;
     float balance;
-    public Account(Currency currency, float balance)
+    public Account()
     {
-        this.currency = currency;
-        this.balance = balance;
+        balance = 0;
+    }
+    public void Deposit(Denomination account)
+    {
+        balance += account.Amount / account.Currency.Multiplier * account.Currency.AvgRate;
     }
 
-    public float Balance { get => balance; }
-    public Currency Currency { get => currency; }
-
-    public static Account Parse(String parse)
+    public Denomination Balance(Currency currency)
     {
-        try
-        {
-            parse = parse.Trim();
-            parse = parse.Replace("  ", " ");
-            parse = parse.Replace(",", ".");
-            parse = parse.ToUpper();
-            string[] parts = parse.Split(' ', 2);
-            return new Account(Database.local.GetCurrency(parts[1]), float.Parse(parts[0]));
-        }
-        catch (System.IndexOutOfRangeException)
-        {
-            return null;
-        }
-    }
-
-    public override string ToString()
-    {
-        return String.Format("{0} {1}", this.balance, this.currency.Code);
+        return new Denomination(currency, balance * currency.Multiplier / currency.AvgRate);
     }
 }

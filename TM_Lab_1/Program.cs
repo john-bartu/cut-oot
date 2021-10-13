@@ -14,7 +14,7 @@ namespace TM_Lab_1
     {
         static void Main(string[] args)
         {
-            Bank bank = new Bank();
+            Account bank = new Account();
 
             while (true)
             {
@@ -45,9 +45,9 @@ namespace TM_Lab_1
             return (response == ConsoleKey.Y);
         }
 
-        public static Account ProvideCash()
+        public static Denomination ProvideCash()
         {
-            Account account;
+            Denomination account;
             do
             {
 
@@ -70,7 +70,7 @@ namespace TM_Lab_1
                 String response = Console.ReadLine();
 
 
-                account = Account.Parse(response);
+                account = Denomination.Parse(response);
 
 
             } while (account == null);
