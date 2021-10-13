@@ -4,75 +4,67 @@ using System.Linq;
 using System.Net;
 using System.Xml.Linq;
 
-class Database
+namespace TM_Lab_1
 {
-    static String URLString = "https://www.nbp.pl/kursy/xml/lasta.xml";
-    static Dictionary<String, Currency> currency_dictionary = new Dictionary<string, Currency>();
-    static readonly Database _DatabaseSingletonInstance = new Database();
-
-    static Database() { }
-    private Database()
+    internal class Database
     {
-        Update();
-    }
+        private static readonly string URLString = "https://www.nbp.pl/kursy/xml/lasta.xml";
+        private static readonly Dictionary<string, Currency> CurrencyDictionary = new();
 
-    public void Update()
-    {
-        using (WebClient client = new WebClient())
+        static Database()
         {
-            try
-            {
-                Console.WriteLine("[DB] Downloading XML data");
-                String contentString = client.DownloadString(URLString);
+        }
 
-                Console.WriteLine("[DB] XML data downloaded");
-                var documment = XDocument.Parse(contentString);
-                var currences = documment.Root
-                     .Elements("pozycja")
-                     .Select(x => new Currency(x))
-                     .ToArray();
-                currency_dictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
-                foreach (var currency in currences)
+        private Database()
+        {
+            Update();
+        }
+
+        public static Database Local { get; } = new();
+
+        public void Update()
+        {
+            using (var client = new WebClient())
+            {
+                try
                 {
-                    if (currency_dictionary.ContainsKey(currency.Code))
-                    {
-                        currency_dictionary[currency.Code] = currency;
-                    }
-                    else
-                    {
-                        currency_dictionary.Add(currency.Code, currency);
-                    }
-                }
-                Console.WriteLine("[DB] Database updated");
+                    Console.WriteLine("[DB] Downloading XML data");
+                    var contentString = client.DownloadString(URLString);
 
-            }
-            catch (System.Net.WebException)
-            {
-                Console.WriteLine("[DB] Server not responding, retrying...");
-                Update();
+                    Console.WriteLine("[DB] XML data downloaded");
+                    var documment = XDocument.Parse(contentString);
+                    var currences = documment.Root
+                        .Elements("pozycja")
+                        .Select(x => new Currency(x))
+                        .ToArray();
+                    CurrencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
+                    foreach (var currency in currences)
+                        if (CurrencyDictionary.ContainsKey(currency.Code))
+                            CurrencyDictionary[currency.Code] = currency;
+                        else
+                            CurrencyDictionary.Add(currency.Code, currency);
+
+                    Console.WriteLine("[DB] Database updated");
+                }
+                catch (WebException)
+                {
+                    Console.WriteLine("[DB] Server not responding, retrying...");
+                    Update();
+                }
             }
         }
-    }
 
-    public Currency GetCurrency(string currency_code)
-    {
-        Currency currency;
-        if (currency_dictionary.TryGetValue(currency_code, out currency))
-            return currency;
-        else
-            throw new Exception("This currency does not exist in database");
-    }
-
-    public List<Currency> GetCurrencies()
-    {
-        return currency_dictionary.Values.ToList<Currency>();
-    }
-
-    public static Database local
-    {
-        get
+        public Currency GetCurrency(string currencyCode)
         {
-            return _DatabaseSingletonInstance;
+            Currency currency;
+            if (CurrencyDictionary.TryGetValue(currencyCode, out currency))
+                return currency;
+            throw new IndexOutOfRangeException("This currency does not exist in database");
+        }
+
+        public List<Currency> GetCurrencies()
+        {
+            return CurrencyDictionary.Values.ToList();
         }
     }
 }

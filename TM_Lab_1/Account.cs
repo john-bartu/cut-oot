@@ -1,17 +1,22 @@
-class Account
+namespace TM_Lab_1
 {
-    float balance;
-    public Account()
+    internal class Account
     {
-        balance = 0;
-    }
-    public void Deposit(Denomination account)
-    {
-        balance += account.Amount / account.Currency.Multiplier * account.Currency.AvgRate;
-    }
+        private float _balance;
 
-    public Denomination Balance(Currency currency)
-    {
-        return new Denomination(currency, balance * currency.Multiplier / currency.AvgRate);
+        public Account()
+        {
+            _balance = 0;
+        }
+
+        public void Deposit(Denomination account)
+        {
+            _balance += account.Amount / account.Currency.Multiplier * account.Currency.AvgRate;
+        }
+
+        public Denomination Balance(Currency currency)
+        {
+            return new Denomination(currency, _balance * currency.Multiplier / currency.AvgRate);
+        }
     }
 }

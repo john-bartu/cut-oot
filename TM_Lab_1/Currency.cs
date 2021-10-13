@@ -1,37 +1,37 @@
-using System;
 using System.Globalization;
 using System.Xml.Linq;
 
-class Currency
+namespace TM_Lab_1
 {
-    String name;
-    int multiplier;
-    String code;
-    float exchange_rate_avg;
-
-    public Currency(XElement xml)
+    internal class Currency
     {
-        this.name = xml.Element("nazwa_waluty").Value;
-        this.multiplier = Int32.Parse(xml.Element("przelicznik").Value);
-        this.code = xml.Element("kod_waluty").Value;
-        this.exchange_rate_avg = float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"));
-    }
+        public Currency(XElement xml)
+        {
+            Name = xml.Element("nazwa_waluty").Value;
+            Multiplier = int.Parse(xml.Element("przelicznik").Value);
+            Code = xml.Element("kod_waluty").Value;
+            AvgRate = float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"));
+        }
 
-    public Currency(string name, int multiplier, string code, float exchange_rate_avg)
-    {
-        this.name = name;
-        this.multiplier = multiplier;
-        this.code = code;
-        this.exchange_rate_avg = exchange_rate_avg;
-    }
+        public Currency(string name, int multiplier, string code, float exchangeRateAvg)
+        {
+            Name = name;
+            Multiplier = multiplier;
+            Code = code;
+            AvgRate = exchangeRateAvg;
+        }
 
-    public string Name { get => name; }
-    public int Multiplier { get => multiplier; }
-    public string Code { get => code; }
-    public float AvgRate { get => exchange_rate_avg; }
+        public string Name { get; }
 
-    public override string ToString()
-    {
-        return String.Format("[{0}]: {1}", this.code, this.exchange_rate_avg);
+        public int Multiplier { get; }
+
+        public string Code { get; }
+
+        public float AvgRate { get; }
+
+        public override string ToString()
+        {
+            return string.Format("[{0}]: {1}", Code, AvgRate);
+        }
     }
 }
