@@ -10,6 +10,7 @@ class Database
     static Dictionary<String, Currency> currency_dictionary = new Dictionary<string, Currency>();
     static readonly Database _DatabaseSingletonInstance = new Database();
 
+    static Database() { }
     private Database()
     {
         Update();
@@ -21,8 +22,6 @@ class Database
         {
             try
             {
-
-
                 Console.WriteLine("[DB] Downloading XML data");
                 String contentString = client.DownloadString(URLString);
 
@@ -53,21 +52,15 @@ class Database
                 Update();
             }
         }
-
-
     }
 
     public Currency GetCurrency(string currency_code)
     {
         Currency currency;
         if (currency_dictionary.TryGetValue(currency_code, out currency))
-        {
             return currency;
-        }
         else
-        {
             throw new Exception("This currency does not exist in database");
-        }
     }
 
     public List<Currency> GetCurrencies()
@@ -75,5 +68,11 @@ class Database
         return currency_dictionary.Values.ToList<Currency>();
     }
 
-    public static Database GetInstance() => _DatabaseSingletonInstance;
+    public static Database local
+    {
+        get
+        {
+            return _DatabaseSingletonInstance;
+        }
+    }
 }
