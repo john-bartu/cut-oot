@@ -12,7 +12,6 @@ namespace TM_Lab_1
     }
     class Program
     {
-        static Database DataBase = Database.GetInstance();
         static void Main(string[] args)
         {
             Bank bank = new Bank();
@@ -54,7 +53,7 @@ namespace TM_Lab_1
 
                 Console.WriteLine("--------------- KURS WALUT ---------------");
                 int index = 1;
-                foreach (var currency in DataBase.GetCurrencies())
+                foreach (var currency in Database.local.GetCurrencies())
                 {
 
                     Console.Write(currency.ToString() + "\t");
@@ -64,8 +63,9 @@ namespace TM_Lab_1
 
                     index++;
                 }
+                Console.WriteLine();
                 Console.WriteLine("Wpisz kwotę np. '0.00 PLN'");
-                Console.WriteLine("> ");
+                Console.Write("> ");
 
                 String response = Console.ReadLine();
 
@@ -86,7 +86,7 @@ namespace TM_Lab_1
 
                 Console.WriteLine("----------------- WALUTY ------------------");
                 int index = 1;
-                foreach (var currency in DataBase.GetCurrencies())
+                foreach (var currency in Database.local.GetCurrencies())
                 {
 
                     Console.Write(currency.Code + "\t");
@@ -96,12 +96,13 @@ namespace TM_Lab_1
 
                     index++;
                 }
+                Console.WriteLine();
                 Console.WriteLine("W jakiej walucie wyświetlic stan konta? np.'PLN'");
-                Console.WriteLine("> ");
+                Console.Write("> ");
                 String response = Console.ReadLine();
                 response = response.Trim();
                 response = response.ToUpper();
-                temp_currency = Database.GetInstance().GetCurrency(response);
+                temp_currency = Database.local.GetCurrency(response);
 
 
             } while (temp_currency == null);

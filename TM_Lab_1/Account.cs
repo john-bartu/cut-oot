@@ -23,7 +23,7 @@ class Account
             parse = parse.Replace(",", ".");
             parse = parse.ToUpper();
             string[] parts = parse.Split(' ', 2);
-            return new Account(Database.GetInstance().GetCurrency(parts[1]), float.Parse(parts[0]));
+            return new Account(Database.local.GetCurrency(parts[1]), float.Parse(parts[0]));
         }
         catch (System.IndexOutOfRangeException)
         {
