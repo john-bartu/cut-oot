@@ -20,12 +20,12 @@ namespace TM_Lab_1
             while (true)
             {
 
-                if (Confirm("Czy chcesz dodać środki?"))
+                if (Confirm("🏧️ Czy chcesz dodać środki?"))
                 {
                     bank.Deposit(ProvideCash());
                 }
 
-                Console.WriteLine("Stan konta: " + bank.Balance(ProvideCurrency()).ToString());
+                Console.WriteLine("Obecny stan konta: " + bank.Balance(ProvideCurrency()).ToString() + " 💰️\n");
             }
 
         }
@@ -52,7 +52,7 @@ namespace TM_Lab_1
             do
             {
 
-                Console.WriteLine("---------- KURS WALUT ----------");
+                Console.WriteLine("--------------- KURS WALUT ---------------");
                 int index = 1;
                 foreach (var currency in DataBase.GetCurrencies())
                 {
@@ -65,6 +65,7 @@ namespace TM_Lab_1
                     index++;
                 }
                 Console.WriteLine("Wpisz kwotę np. '0.00 PLN'");
+                Console.WriteLine("> ");
 
                 String response = Console.ReadLine();
 
@@ -83,7 +84,7 @@ namespace TM_Lab_1
             do
             {
 
-                Console.WriteLine("------------ WALUTY ------------");
+                Console.WriteLine("----------------- WALUTY ------------------");
                 int index = 1;
                 foreach (var currency in DataBase.GetCurrencies())
                 {
@@ -95,8 +96,8 @@ namespace TM_Lab_1
 
                     index++;
                 }
-                Console.WriteLine();
-
+                Console.WriteLine("W jakiej walucie wyświetlic stan konta? np.'PLN'");
+                Console.WriteLine("> ");
                 String response = Console.ReadLine();
                 response = response.Trim();
                 response = response.ToUpper();
