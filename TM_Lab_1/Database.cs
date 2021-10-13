@@ -23,16 +23,15 @@ class Database
             {
 
 
-                Console.WriteLine("Preparing to database update, connecting to the server...");
+                Console.WriteLine("[DB] Downloading XML data");
                 String contentString = client.DownloadString(URLString);
 
-                Console.WriteLine("...XML Data downloaded");
+                Console.WriteLine("[DB] XML data downloaded");
                 var documment = XDocument.Parse(contentString);
                 var currences = documment.Root
                      .Elements("pozycja")
                      .Select(x => new Currency(x))
                      .ToArray();
-                Console.WriteLine("XML Data parsed");
                 currency_dictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
                 foreach (var currency in currences)
                 {
@@ -45,12 +44,12 @@ class Database
                         currency_dictionary.Add(currency.Code, currency);
                     }
                 }
-                Console.WriteLine("Database updated");
+                Console.WriteLine("[DB] Database updated");
 
             }
             catch (System.Net.WebException)
             {
-                Console.WriteLine("Server not responding, retrying...");
+                Console.WriteLine("[DB] Server not responding, retrying...");
                 Update();
             }
         }
