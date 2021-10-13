@@ -16,9 +16,6 @@ namespace TM_Lab_1
         static Database DataBase = Database.GetInstance();
         static void Main(string[] args)
         {
-
-            DataBase.Update();
-            // Command command = Command.EXIT;
             Bank bank = new Bank();
 
             while (true)
