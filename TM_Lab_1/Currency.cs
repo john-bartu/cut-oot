@@ -8,7 +8,7 @@ class Currency
         String name;
         int multiplier;
         String code;
-        double exchange_rate_avg;
+        float exchange_rate_avg;
 
         public Currency(XElement xml)
         {
