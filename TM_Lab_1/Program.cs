@@ -31,23 +31,23 @@ namespace TM_Lab_1
 
         public static bool Confirm(string title)
         {
-            ConsoleKey response;
+            ConsoleKey input;
             do
             {
                 Console.Write($"{ title } [y/n] ");
-                response = Console.ReadKey(false).Key;
-                if (response != ConsoleKey.Enter)
+                input = Console.ReadKey(false).Key;
+                if (input != ConsoleKey.Enter)
                 {
                     Console.WriteLine();
                 }
-            } while (response != ConsoleKey.Y && response != ConsoleKey.N);
+            } while (input != ConsoleKey.Y && input != ConsoleKey.N);
 
-            return (response == ConsoleKey.Y);
+            return (input == ConsoleKey.Y);
         }
 
         public static Denomination ProvideCash()
         {
-            Denomination account;
+            Denomination denomination;
             do
             {
 
@@ -68,28 +68,24 @@ namespace TM_Lab_1
                 Console.Write("> ");
 
                 String response = Console.ReadLine();
+                denomination = Denomination.Parse(response);
 
+            } while (denomination == null);
 
-                account = Denomination.Parse(response);
-
-
-            } while (account == null);
-
-            return account;
+            return denomination;
         }
 
         public static Currency ProvideCurrency()
         {
-            Currency temp_currency;
+            Currency currency;
             do
             {
 
                 Console.WriteLine("----------------- WALUTY ------------------");
                 int index = 1;
-                foreach (var currency in Database.local.GetCurrencies())
+                foreach (var curr in Database.local.GetCurrencies())
                 {
-
-                    Console.Write(currency.Code + "\t");
+                    Console.Write(curr.Code + "\t");
 
                     if (index % 8 == 0)
                         Console.WriteLine();
@@ -102,12 +98,12 @@ namespace TM_Lab_1
                 String response = Console.ReadLine();
                 response = response.Trim();
                 response = response.ToUpper();
-                temp_currency = Database.local.GetCurrency(response);
+                currency = Database.local.GetCurrency(response);
 
 
-            } while (temp_currency == null);
+            } while (currency == null);
 
-            return temp_currency;
+            return currency;
         }
     }
 
