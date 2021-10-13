@@ -19,24 +19,39 @@ class Database
     {
         using (WebClient client = new WebClient())
         {
-            String contentString = client.DownloadString(URLString);
-            var documment = XDocument.Parse(contentString);
-            var currences = documment.Root
-                 .Elements("pozycja")
-                 .Select(x => new Currency(x))
-                 .ToArray();
-
-            currency_dictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
-            foreach (var currency in currences)
+            try
             {
-                if (currency_dictionary.ContainsKey(currency.Code))
+
+
+                Console.WriteLine("Preparing to database update, connecting to the server...");
+                String contentString = client.DownloadString(URLString);
+
+                Console.WriteLine("...XML Data downloaded");
+                var documment = XDocument.Parse(contentString);
+                var currences = documment.Root
+                     .Elements("pozycja")
+                     .Select(x => new Currency(x))
+                     .ToArray();
+                Console.WriteLine("XML Data parsed");
+                currency_dictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
+                foreach (var currency in currences)
                 {
-                    currency_dictionary[currency.Code] = currency;
+                    if (currency_dictionary.ContainsKey(currency.Code))
+                    {
+                        currency_dictionary[currency.Code] = currency;
+                    }
+                    else
+                    {
+                        currency_dictionary.Add(currency.Code, currency);
+                    }
                 }
-                else
-                {
-                    currency_dictionary.Add(currency.Code, currency);
-                }
+                Console.WriteLine("Database updated");
+
+            }
+            catch (System.Net.WebException)
+            {
+                Console.WriteLine("Server not responding, retrying...");
+                Update();
             }
         }
 
