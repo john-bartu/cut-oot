@@ -87,11 +87,11 @@ namespace TM_Lab_1
                     Console.WriteLine("W jakiej walucie wyświetlic stan konta? np.'PLN'");
                     Console.Write("> ");
                     var response = Console.ReadLine();
-                    response = response.Trim();
-                    response = response.ToUpper();
+                    response = response?.Trim();
+                    response = response?.ToUpper();
                     currency = Database.Local.GetCurrency(response);
                 }
-                catch (IndexOutOfRangeException e)
+                catch (IndexOutOfRangeException)
                 {
                     currency = null;
                 }

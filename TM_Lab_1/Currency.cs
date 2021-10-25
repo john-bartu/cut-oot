@@ -7,9 +7,9 @@ namespace TM_Lab_1
     {
         public Currency(XElement xml)
         {
-            Name = xml.Element("nazwa_waluty").Value;
-            Multiplier = int.Parse(xml.Element("przelicznik").Value);
-            Code = xml.Element("kod_waluty").Value;
+            Name = xml.Element("nazwa_waluty")?.Value;
+            Multiplier = int.Parse(xml.Element("przelicznik")?.Value);
+            Code = xml.Element("kod_waluty")?.Value;
             AvgRate = float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"));
         }
 
@@ -31,7 +31,7 @@ namespace TM_Lab_1
 
         public override string ToString()
         {
-            return string.Format("[{0}]: {1}", Code, AvgRate);
+            return $"[{Code}]: {AvgRate}";
         }
     }
 }

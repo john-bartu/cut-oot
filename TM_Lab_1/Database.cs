@@ -32,13 +32,13 @@ namespace TM_Lab_1
                     var contentString = client.DownloadString(URLString);
 
                     Console.WriteLine("[DB] XML data downloaded");
-                    var documment = XDocument.Parse(contentString);
-                    var currences = documment.Root
+                    var documents = XDocument.Parse(contentString);
+                    var currencies = documents.Root?
                         .Elements("pozycja")
                         .Select(x => new Currency(x))
                         .ToArray();
                     CurrencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
-                    foreach (var currency in currences)
+                    foreach (var currency in currencies)
                         if (CurrencyDictionary.ContainsKey(currency.Code))
                             CurrencyDictionary[currency.Code] = currency;
                         else
@@ -56,8 +56,7 @@ namespace TM_Lab_1
 
         public Currency GetCurrency(string currencyCode)
         {
-            Currency currency;
-            if (CurrencyDictionary.TryGetValue(currencyCode, out currency))
+            if (CurrencyDictionary.TryGetValue(currencyCode, out var currency))
                 return currency;
             throw new IndexOutOfRangeException("This currency does not exist in database");
         }
