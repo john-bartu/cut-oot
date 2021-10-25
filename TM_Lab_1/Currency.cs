@@ -3,16 +3,8 @@ using System.Xml.Linq;
 
 namespace TM_Lab_1
 {
-    internal class Currency
+    public class Currency
     {
-        public Currency(XElement xml)
-        {
-            Name = xml.Element("nazwa_waluty")?.Value;
-            Multiplier = int.Parse(xml.Element("przelicznik")?.Value);
-            Code = xml.Element("kod_waluty")?.Value;
-            AvgRate = float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"));
-        }
-
         public Currency(string name, int multiplier, string code, float exchangeRateAvg)
         {
             Name = name;
@@ -21,7 +13,7 @@ namespace TM_Lab_1
             AvgRate = exchangeRateAvg;
         }
 
-        public string Name { get; }
+        private string Name { get; }
 
         public int Multiplier { get; }
 

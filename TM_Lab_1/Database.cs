@@ -8,7 +8,6 @@ namespace TM_Lab_1
 {
     internal class Database
     {
-        private static readonly string URLString = "https://www.nbp.pl/kursy/xml/lasta.xml";
         private static readonly Dictionary<string, Currency> CurrencyDictionary = new();
 
         static Database()
@@ -24,34 +23,17 @@ namespace TM_Lab_1
 
         public void Update()
         {
-            using (var client = new WebClient())
-            {
-                try
-                {
-                    Console.WriteLine("[DB] Downloading XML data");
-                    var contentString = client.DownloadString(URLString);
+            Currency[] newCurrencies = XMLTools.CurrenciesRemoteGet();
 
-                    Console.WriteLine("[DB] XML data downloaded");
-                    var documents = XDocument.Parse(contentString);
-                    var currencies = documents.Root?
-                        .Elements("pozycja")
-                        .Select(x => new Currency(x))
-                        .ToArray();
-                    CurrencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
-                    foreach (var currency in currencies)
-                        if (CurrencyDictionary.ContainsKey(currency.Code))
-                            CurrencyDictionary[currency.Code] = currency;
-                        else
-                            CurrencyDictionary.Add(currency.Code, currency);
+            CurrencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
 
-                    Console.WriteLine("[DB] Database updated");
-                }
-                catch (WebException)
-                {
-                    Console.WriteLine("[DB] Server not responding, retrying...");
-                    Update();
-                }
-            }
+            foreach (var currency in newCurrencies)
+                if (CurrencyDictionary.ContainsKey(currency.Code))
+                    CurrencyDictionary[currency.Code] = currency;
+                else
+                    CurrencyDictionary.Add(currency.Code, currency);
+
+            Console.WriteLine("[DB] Database updated");
         }
 
         public Currency GetCurrency(string currencyCode)
