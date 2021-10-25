@@ -31,27 +31,26 @@ namespace TM_Lab_1
 
         public static Currency[] CurrenciesRemoteGet()
         {
-            using (var client = new WebClient())
+            using var client = new WebClient();
+            try
             {
-                try
-                {
-                    Console.WriteLine("[DB] Downloading XML data");
-                    var contentString = client.DownloadString(URLString);
+                Console.WriteLine("[DB] Downloading XML data");
+                var contentString = client.DownloadString(URLString);
 
-                    Console.WriteLine("[DB] XML data downloaded");
-                    var documents = XDocument.Parse(contentString);
-                    var currencies = documents.Root?
-                        .Elements("pozycja")
-                        .Select(XMLTools.CurrencyFromXML)
-                        .ToArray();
+                Console.WriteLine("[DB] XML data downloaded");
+                var documents = XDocument.Parse(contentString);
+                var currencies = documents.Root?
+                    // ReSharper disable once StringLiteralTypo
+                    .Elements("pozycja")
+                    .Select(XMLTools.CurrencyFromXML)
+                    .ToArray();
 
-                    return currencies;
-                }
-                catch (WebException)
-                {
-                    Console.WriteLine("[DB] Server not responding, retrying...");
-                    return new Currency[] { };
-                }
+                return currencies;
+            }
+            catch (WebException)
+            {
+                Console.WriteLine("[DB] Server not responding, retrying...");
+                return Array.Empty<Currency>();
             }
         }
     }
