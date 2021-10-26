@@ -1,10 +1,10 @@
 @startuml
 class CurrencyDatabase {
 '    - {static} _currencyDictionary : Dictionary<string, Currency>
+    - {static} Local : CurrencyDatabase <<get>>
     {static} Database()
     - Database()
     - {static} <<readonly>> Instance : Database
-    + {static} GetInstance() : Database
     + {static} Update() : void
     + GetCurrency(currencyCode:string) : Currency
     + GetCurrencies() : List<Currency>
