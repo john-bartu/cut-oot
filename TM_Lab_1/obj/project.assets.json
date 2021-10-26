@@ -8,7 +8,8 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\bartu\\.nuget\\packages\\": {}
+    "C:\\Users\\bartu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet": {}
   },
   "project": {
     "version": "1.0.0",
@@ -19,13 +20,19 @@
       "packagesPath": "C:\\Users\\bartu\\.nuget\\packages\\",
       "outputPath": "D:\\WorkSpacePK\\TO\\TM_Lab_1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
+      ],
       "configFilePaths": [
-        "C:\\Users\\bartu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\bartu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
