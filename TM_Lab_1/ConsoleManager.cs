@@ -2,7 +2,7 @@
 
 namespace TM_Lab_1
 {
-    public class ConsoleManager
+    public static class ConsoleManager
     {
         public static void PrintCurrencies()
         {
@@ -61,7 +61,7 @@ namespace TM_Lab_1
 
                 if (denomination == null)
                 {
-                    Console.Write("Currency with amount not recognised.");
+                    Console.WriteLine("Currency with amount not recognised.");
                 }
             } while (denomination == null);
 
