@@ -11,5 +11,5 @@ class CurrencyDatabase {
 }
 
 CurrencyDatabase "1" *-- "many" Currency 
-CurrencyDatabase --> XMLTools : call
+CurrencyDatabase --> XmlTools : call
 @enduml

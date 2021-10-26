@@ -24,13 +24,13 @@ namespace TM_Lab_1
         public void Update()
         {
             Console.WriteLine("[DB] Preparing for database update");
-            var newCurrencies = XMLTools.CurrenciesRemoteGet();
+            var newCurrencies = XmlTools.CurrenciesRemoteGet();
 
             for (var i = 0; i < 3 && newCurrencies.Length == 0; i++)
             {
                 Console.WriteLine($"[DB] Preparing for database update, retry: {i}");
                 Thread.Sleep(1000);
-                newCurrencies = XMLTools.CurrenciesRemoteGet();
+                newCurrencies = XmlTools.CurrenciesRemoteGet();
             }
 
             _currencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);

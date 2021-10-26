@@ -6,11 +6,11 @@ using System.Xml.Linq;
 
 namespace TM_Lab_1
 {
-    public class XMLTools
+    public static class XmlTools
     {
         private static readonly string URLString = "https://www.nbp.pl/kursy/xml/lasta.xml";
 
-        public static Currency CurrencyFromXML(XContainer xml)
+        private static Currency CurrencyFromXml(XContainer xml)
         {
             try
             {
@@ -24,7 +24,8 @@ namespace TM_Lab_1
             catch (NullReferenceException e)
             {
                 Console.WriteLine(e);
-                throw new ArgumentException("XML data contains unexpected data");
+                // throw new ArgumentException("XML data contains unexpected data");
+                return null;
             }
         }
 
@@ -41,7 +42,7 @@ namespace TM_Lab_1
                 var currencies = documents.Root?
                     // ReSharper disable once StringLiteralTypo
                     .Elements("pozycja")
-                    .Select(CurrencyFromXML)
+                    .Select(CurrencyFromXml)
                     .ToArray();
 
                 return currencies;

@@ -5,5 +5,5 @@
 !include .\UMLParts\CurrencyDatabase.puml
 !include .\UMLParts\Denomination.puml
 !include .\UMLParts\Program.puml
-!include .\UMLParts\XMLTools.puml
+!include .\UMLParts\XmlTools.puml
 @enduml
