@@ -17,7 +17,7 @@ namespace TM_Lab_1
                     userAccount.Deposit(ConsoleManager.InputProvideCash());
 
                 if (ConsoleManager.InputConfirm("Do you want currency conversion?"))
-                    userAccount.Convert(ConsoleManager.InputProvideCurrency());
+                    userAccount.ExchangeTo(ConsoleManager.InputProvideCurrency());
 
                 end = ConsoleManager.InputConfirm("Do you want to quit?");
                 Console.Clear();

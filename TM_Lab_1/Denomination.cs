@@ -14,7 +14,7 @@ namespace TM_Lab_1
 
         public Currency Currency { get; }
 
-        public Denomination convert_to(Currency newCurrency)
+        public Denomination ExchangeTo(Currency newCurrency)
         {
             return new Denomination(newCurrency,
                 (Currency.AvgRate / Currency.Multiplier) / (newCurrency.AvgRate / newCurrency.Multiplier) * Amount);

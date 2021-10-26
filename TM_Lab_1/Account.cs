@@ -12,12 +12,12 @@ namespace TM_Lab_1
         public void Deposit(Denomination account)
         {
             _balance = new Denomination(_balance.Currency,
-                _balance.Amount + account.convert_to(_balance.Currency).Amount);
+                _balance.Amount + account.ExchangeTo(_balance.Currency).Amount);
         }
 
-        public void Convert(Currency currency)
+        public void ExchangeTo(Currency currency)
         {
-            _balance = _balance.convert_to(currency);
+            _balance = _balance.ExchangeTo(currency);
         }
 
         public Denomination Balance()
