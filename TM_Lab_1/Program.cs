@@ -6,11 +6,6 @@ namespace TM_Lab_1
     {
         private static void Main(string[] args)
         {
-            var a = CurrencyDatabase.Local;
-            var b = CurrencyDatabase.Local;
-
-            if (a.Equals(b)) Console.WriteLine("OK");
-
             ConsoleManager.PrintCurrencies();
 
             var userAccount = new Account();
