@@ -1,4 +1,5 @@
 @startuml
+title TM_Lab_1
 !include .\UMLParts\Account.puml
 !include .\UMLParts\ConsoleManager.puml
 !include .\UMLParts\Currency.puml

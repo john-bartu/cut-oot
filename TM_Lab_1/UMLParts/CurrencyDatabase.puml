@@ -1,14 +1,20 @@
 @startuml
-class CurrencyDatabase {
-'    - {static} _currencyDictionary : Dictionary<string, Currency>
+class CurrencyDatabase << (S,#47c5ff) singleton >> {
+'    - {static} <<readonly>> Instance : Database
+    - {static} _currencyDictionary : Dictionary<string, Currency>
     - {static} Local : CurrencyDatabase <<get>>
     {static} Database()
     - Database()
-    - {static} <<readonly>> Instance : Database
     + {static} Update() : void
     + GetCurrency(currencyCode:string) : Currency
     + GetCurrencies() : List<Currency>
 }
+
+note right of CurrencyDatabase::Local
+The Local is static public property
+with only getter available which
+makes it as a global variable
+end note 
 
 CurrencyDatabase "1" o-- "many" Currency 
 CurrencyDatabase ..> XmlTools : call
