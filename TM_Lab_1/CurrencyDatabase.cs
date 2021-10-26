@@ -7,23 +7,23 @@ using System.Xml.Linq;
 
 namespace TM_Lab_1
 {
-    internal class Database
+    internal class CurrencyDatabase
     {
         private static Dictionary<string, Currency> _currencyDictionary;
 
-        static Database()
+        static CurrencyDatabase()
         {
         }
 
-        private Database()
+        private CurrencyDatabase()
         {
             _currencyDictionary = new Dictionary<string, Currency>();
             Update();
         }
 
-        private static readonly Database Instance = new();
+        private static readonly CurrencyDatabase Instance = new();
 
-        public static Database Local()
+        public static CurrencyDatabase Local()
         {
             return Instance;
         }

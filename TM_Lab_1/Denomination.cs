@@ -29,7 +29,7 @@ namespace TM_Lab_1
                 parse = parse.Replace(",", ".");
                 parse = parse.ToUpper();
                 var parts = parse.Split(' ', 2);
-                return new Denomination(Database.Local().GetCurrency(parts[1]), float.Parse(parts[0]));
+                return new Denomination(CurrencyDatabase.Local().GetCurrency(parts[1]), float.Parse(parts[0]));
             }
             catch (IndexOutOfRangeException)
             {

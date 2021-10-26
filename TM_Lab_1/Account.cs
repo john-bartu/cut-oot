@@ -6,7 +6,7 @@ namespace TM_Lab_1
 
         public Account()
         {
-            _balance = new Denomination(Database.Local().GetCurrency("PLN"), 0);
+            _balance = new Denomination(CurrencyDatabase.Local().GetCurrency("PLN"), 0);
         }
 
         public void Deposit(Denomination account)
