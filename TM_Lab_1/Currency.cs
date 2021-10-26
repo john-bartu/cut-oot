@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Xml.Linq;
-
 namespace TM_Lab_1
 {
     public class Currency

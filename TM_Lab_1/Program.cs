@@ -9,13 +9,10 @@ namespace TM_Lab_1
             var a = CurrencyDatabase.Local;
             var b = CurrencyDatabase.Local;
 
-            if (a.Equals(b))
-            {
-                Console.WriteLine("OK");
-            }
-            
+            if (a.Equals(b)) Console.WriteLine("OK");
+
             ConsoleManager.PrintCurrencies();
-            
+
             var userAccount = new Account();
             var end = false;
 

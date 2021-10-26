@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http.Headers;
 
 namespace TM_Lab_1
 {
@@ -40,11 +39,9 @@ namespace TM_Lab_1
                 {
                     return null;
                 }
-                else
-                {
-                    Console.WriteLine("Unexpected error during denomination parsing");
-                    return null;
-                }
+
+                Console.WriteLine("Unexpected error during denomination parsing");
+                return null;
             }
         }
 

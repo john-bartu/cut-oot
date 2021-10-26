@@ -59,10 +59,8 @@ namespace TM_Lab_1
                 var response = Console.ReadLine();
                 denomination = Denomination.ParseOrNull(response);
 
-                if (denomination == null)
-                {
-                    Console.WriteLine("Currency with amount not recognised.");
-                }
+                if (denomination == null) Console.WriteLine("Currency with amount not recognised.");
+                
             } while (denomination == null);
 
             return denomination;

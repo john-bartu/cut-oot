@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -16,10 +15,10 @@ namespace TM_Lab_1
             try
             {
                 return new Currency(
-                    name: xml.Element("nazwa_waluty").Value,
-                    multiplier: int.Parse(xml.Element("przelicznik").Value),
-                    code: xml.Element("kod_waluty").Value,
-                    exchangeRateAvg: float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"))
+                    xml.Element("nazwa_waluty").Value,
+                    int.Parse(xml.Element("przelicznik").Value),
+                    xml.Element("kod_waluty").Value,
+                    float.Parse(xml.Element("kurs_sredni").Value, new CultureInfo("PL-pl"))
                 );
             }
             catch (NullReferenceException e)
@@ -42,7 +41,7 @@ namespace TM_Lab_1
                 var currencies = documents.Root?
                     // ReSharper disable once StringLiteralTypo
                     .Elements("pozycja")
-                    .Select(XMLTools.CurrencyFromXML)
+                    .Select(CurrencyFromXML)
                     .ToArray();
 
                 return currencies;

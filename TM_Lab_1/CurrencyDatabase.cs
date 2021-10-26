@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace TM_Lab_1
 {
@@ -26,8 +24,7 @@ namespace TM_Lab_1
         public void Update()
         {
             Console.WriteLine("[DB] Preparing for database update");
-            Currency[] newCurrencies = XMLTools.CurrenciesRemoteGet();
-            Console.WriteLine(newCurrencies.Length);
+            var newCurrencies = XMLTools.CurrenciesRemoteGet();
 
             for (var i = 0; i < 3 && newCurrencies.Length == 0; i++)
             {
