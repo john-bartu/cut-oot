@@ -7,5 +7,5 @@ class ConsoleManager {
     + {static} InputProvideCurrency() : Currency
 }
 
-ConsoleManager --> CurrencyDatabase : call 
+ConsoleManager ..> CurrencyDatabase : call 
 @enduml

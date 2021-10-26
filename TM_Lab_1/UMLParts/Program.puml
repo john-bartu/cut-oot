@@ -3,8 +3,8 @@ class Program <<static>> {
     - {static} Main(args:string[]) : void
 }
 
-Program -->  ConsoleManager : usesStatically
+Program ..>  ConsoleManager : usesStatically
 
-Program --> "1" Account
+Program ..> "1" Account
 
 @enduml

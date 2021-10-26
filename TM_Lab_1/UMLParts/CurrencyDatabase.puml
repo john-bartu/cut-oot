@@ -10,6 +10,6 @@ class CurrencyDatabase {
     + GetCurrencies() : List<Currency>
 }
 
-CurrencyDatabase "1" *-- "many" Currency 
-CurrencyDatabase --> XmlTools : call
+CurrencyDatabase "1" o-- "many" Currency 
+CurrencyDatabase ..> XmlTools : call
 @enduml
