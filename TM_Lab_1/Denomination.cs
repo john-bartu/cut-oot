@@ -2,7 +2,7 @@ using System;
 
 namespace TM_Lab_1
 {
-    internal class Denomination
+    public class Denomination
     {
         public Denomination(Currency currency, float balance)
         {
