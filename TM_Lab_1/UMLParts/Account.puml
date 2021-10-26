@@ -2,10 +2,10 @@
 class Account {
 '    - _balance : Denomination
     + Account()
-    + Deposit(account:Denomination) : void
+    + Deposit(denomination:Denomination) : void
     + ExchangeTo(currency:Currency) : void
     + Balance() : Denomination
 }
 
-Account *-- Denomination 
+Account o-- "1" Denomination 
 @enduml

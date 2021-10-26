@@ -57,7 +57,7 @@ namespace TM_Lab_1
                 Console.Write("> ");
 
                 var response = Console.ReadLine();
-                denomination = Denomination.Parse(response);
+                denomination = Denomination.ParseOrNull(response);
 
                 if (denomination == null)
                 {

@@ -15,5 +15,5 @@ średnich kursów walut. Zaprojektować narzędzie umożliwiajace obliczenie 
 
 ## Rozwiązanie:
 * [Całość część](CurrencyDatabase.cs#L12-L12)
-* [Singleton](CurrencyDatabase.cs#L10-L30)
+* [Singleton](CurrencyDatabase.cs#L11-L30)
 * ![UML Diagram](UMLProject.png)

@@ -4,12 +4,12 @@ class CurrencyDatabase {
     {static} Database()
     - Database()
     - {static} <<readonly>> Instance : Database
-    + {static} Local() : Database
+    + {static} GetInstance() : Database
     + {static} Update() : void
     + GetCurrency(currencyCode:string) : Currency
     + GetCurrencies() : List<Currency>
 }
 
-CurrencyDatabase "1" *-- "many" Currency  : contains
-XMLTools ... CurrencyDatabase 
+CurrencyDatabase "1" *-- "many" Currency 
+CurrencyDatabase --> XMLTools : call
 @enduml

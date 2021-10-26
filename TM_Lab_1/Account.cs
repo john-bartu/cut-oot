@@ -9,10 +9,10 @@ namespace TM_Lab_1
             _balance = new Denomination(CurrencyDatabase.Local().GetCurrency("PLN"), 0);
         }
 
-        public void Deposit(Denomination account)
+        public void Deposit(Denomination denomination)
         {
             _balance = new Denomination(_balance.Currency,
-                _balance.Amount + account.ExchangeTo(_balance.Currency).Amount);
+                _balance.Amount + denomination.ExchangeTo(_balance.Currency).Amount);
         }
 
         public void ExchangeTo(Currency currency)

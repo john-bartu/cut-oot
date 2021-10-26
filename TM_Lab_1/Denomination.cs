@@ -20,7 +20,7 @@ namespace TM_Lab_1
                 (Currency.AvgRate / Currency.Multiplier) / (newCurrency.AvgRate / newCurrency.Multiplier) * Amount);
         }
 
-        public static Denomination Parse(string parse)
+        public static Denomination ParseOrNull(string parse)
         {
             try
             {
@@ -29,7 +29,9 @@ namespace TM_Lab_1
                 parse = parse.Replace(",", ".");
                 parse = parse.ToUpper();
                 var parts = parse.Split(' ', 2);
-                return new Denomination(CurrencyDatabase.Local().GetCurrency(parts[1]), float.Parse(parts[0]));
+                var currencyCode = parts[1];
+                var amount = float.Parse(parts[0]);
+                return new Denomination(CurrencyDatabase.Local().GetCurrency(currencyCode), amount);
             }
             catch (IndexOutOfRangeException)
             {
