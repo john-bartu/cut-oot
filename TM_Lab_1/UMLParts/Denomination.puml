@@ -9,6 +9,6 @@ class Denomination {
 }
 
 
-Denomination -- "1" Currency
+Denomination - "1" Currency
 Denomination - CurrencyDatabase : GetCurrency
 @enduml
