@@ -14,10 +14,10 @@ namespace TM_Lab_1
 
         public Currency Currency { get; }
 
-        public Denomination convert_to(Currency currency)
+        public Denomination convert_to(Currency newCurrency)
         {
-            return new Denomination(currency,
-                (Currency.AvgRate / Currency.Multiplier) / (currency.Multiplier / currency.AvgRate) * Amount);
+            return new Denomination(newCurrency,
+                (Currency.AvgRate / Currency.Multiplier) / (newCurrency.AvgRate / newCurrency.Multiplier) * Amount);
         }
 
         public static Denomination Parse(string parse)
@@ -29,7 +29,7 @@ namespace TM_Lab_1
                 parse = parse.Replace(",", ".");
                 parse = parse.ToUpper();
                 var parts = parse.Split(' ', 2);
-                return new Denomination(Database.Local.GetCurrency(parts[1]), float.Parse(parts[0]));
+                return new Denomination(Database.Local().GetCurrency(parts[1]), float.Parse(parts[0]));
             }
             catch (IndexOutOfRangeException)
             {

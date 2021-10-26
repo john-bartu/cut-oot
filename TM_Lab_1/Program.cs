@@ -6,14 +6,13 @@ namespace TM_Lab_1
     {
         private static void Main(string[] args)
         {
-            Database.Update();
+            ConsoleManager.PrintCurrencies();
             var userAccount = new Account();
 
             bool end = false;
             while (!end)
             {
                 Console.WriteLine("Current balance: " + userAccount.Balance());
-
                 if (ConsoleManager.InputConfirm("Do you want deposit?"))
                     userAccount.Deposit(ConsoleManager.InputProvideCash());
 
@@ -21,6 +20,7 @@ namespace TM_Lab_1
                     userAccount.Convert(ConsoleManager.InputProvideCurrency());
 
                 end = ConsoleManager.InputConfirm("Do you want to quit?");
+                Console.Clear();
             }
         }
     }

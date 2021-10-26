@@ -9,7 +9,7 @@ namespace TM_Lab_1
 {
     internal class Database
     {
-        private static readonly Dictionary<string, Currency> CurrencyDictionary = new();
+        private static Dictionary<string, Currency> _currencyDictionary;
 
         static Database()
         {
@@ -17,9 +17,16 @@ namespace TM_Lab_1
 
         private Database()
         {
+            _currencyDictionary = new Dictionary<string, Currency>();
+            Update();
         }
 
-        public static Database Local { get; } = new();
+        private static readonly Database Instance = new();
+
+        public static Database Local()
+        {
+            return Instance;
+        }
 
         public static void Update()
         {
@@ -34,27 +41,27 @@ namespace TM_Lab_1
                 newCurrencies = XMLTools.CurrenciesRemoteGet();
             }
 
-            CurrencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
+            _currencyDictionary["PLN"] = new Currency("Złoty Polski", 1, "PLN", 1.000f);
 
             foreach (var currency in newCurrencies)
-                if (CurrencyDictionary.ContainsKey(currency.Code))
-                    CurrencyDictionary[currency.Code] = currency;
+                if (_currencyDictionary.ContainsKey(currency.Code))
+                    _currencyDictionary[currency.Code] = currency;
                 else
-                    CurrencyDictionary.Add(currency.Code, currency);
+                    _currencyDictionary.Add(currency.Code, currency);
 
             Console.WriteLine("[DB] Database updated");
         }
 
         public Currency GetCurrency(string currencyCode)
         {
-            if (CurrencyDictionary.TryGetValue(currencyCode, out var currency))
+            if (_currencyDictionary.TryGetValue(currencyCode, out var currency))
                 return currency;
             throw new IndexOutOfRangeException("This currency does not exist in database");
         }
 
         public List<Currency> GetCurrencies()
         {
-            return CurrencyDictionary.Values.ToList();
+            return _currencyDictionary.Values.ToList();
         }
     }
 }
