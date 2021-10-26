@@ -8,7 +8,7 @@ namespace TM_Lab_1
 {
     public static class XmlTools
     {
-        private static readonly string URLString = "https://www.nbp.pl/kursy/xml/lasta.xml";
+        private const string UrlString = "https://www.nbp.pl/kursy/xml/lasta.xml";
 
         private static Currency CurrencyFromXml(XContainer xml)
         {
@@ -35,7 +35,7 @@ namespace TM_Lab_1
             try
             {
                 Console.WriteLine("[DB] Downloading XML data");
-                var contentString = client.DownloadString(URLString);
+                var contentString = client.DownloadString(UrlString);
 
                 Console.WriteLine("[DB] XML data downloaded");
                 var documents = XDocument.Parse(contentString);
@@ -49,7 +49,7 @@ namespace TM_Lab_1
             }
             catch (WebException)
             {
-                Console.WriteLine("[DB] Server not responding, retrying...");
+                Console.WriteLine("[DB] HTTPs server not responding");
                 return Array.Empty<Currency>();
             }
         }

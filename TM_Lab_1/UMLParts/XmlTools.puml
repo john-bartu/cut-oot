@@ -1,6 +1,6 @@
 @startuml
 class XmlTools {
-    - {static} <<readonly>> URLString : string
+    - <<const>> UrlString : string
     - {static} CurrencyFromXml(xml:XContainer) : Currency
     + {static} CurrenciesRemoteGet() : Currency[]
 }
