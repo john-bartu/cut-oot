@@ -32,7 +32,7 @@ namespace TM_Lab_1
                 var parts = parse.Split(' ', 2);
                 var currencyCode = parts[1];
                 var amount = float.Parse(parts[0]);
-                return new Denomination(CurrencyDatabase.Local().GetCurrency(currencyCode), amount);
+                return new Denomination(CurrencyDatabase.Local.GetCurrency(currencyCode), amount);
             }
             catch (Exception ex)
             {

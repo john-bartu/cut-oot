@@ -6,18 +6,30 @@ namespace TM_Lab_1
     {
         private static void Main(string[] args)
         {
-            ConsoleManager.PrintCurrencies();
-            var userAccount = new Account();
+            var a = CurrencyDatabase.Local;
+            var b = CurrencyDatabase.Local;
 
-            bool end = false;
+            if (a.Equals(b))
+            {
+                Console.WriteLine("OK");
+            }
+            
+            ConsoleManager.PrintCurrencies();
+            
+            var userAccount = new Account();
+            var end = false;
+
             while (!end)
             {
                 Console.WriteLine("Current balance: " + userAccount.Balance());
+
                 if (ConsoleManager.InputConfirm("Do you want deposit?"))
                     userAccount.Deposit(ConsoleManager.InputProvideCash());
 
                 if (ConsoleManager.InputConfirm("Do you want currency conversion?"))
                     userAccount.ExchangeTo(ConsoleManager.InputProvideCurrency());
+
+                Console.WriteLine("Current balance: " + userAccount.Balance());
 
                 end = ConsoleManager.InputConfirm("Do you want to quit?");
                 Console.Clear();

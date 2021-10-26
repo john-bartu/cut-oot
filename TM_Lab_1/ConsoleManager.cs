@@ -8,7 +8,7 @@ namespace TM_Lab_1
         {
             Console.WriteLine("----------------- Currencies ------------------");
             var index = 1;
-            foreach (var curr in CurrencyDatabase.Local().GetCurrencies())
+            foreach (var curr in CurrencyDatabase.Local.GetCurrencies())
             {
                 Console.Write(curr.Code + "\t");
                 if (index % 10 == 0)
@@ -23,7 +23,7 @@ namespace TM_Lab_1
         {
             Console.WriteLine("--------------- Currency Cantor ---------------");
             var index = 1;
-            foreach (var currency in CurrencyDatabase.Local().GetCurrencies())
+            foreach (var currency in CurrencyDatabase.Local.GetCurrencies())
             {
                 Console.Write(currency + "\t");
                 if (index % 4 == 0)
@@ -81,7 +81,7 @@ namespace TM_Lab_1
                     var response = Console.ReadLine();
                     response = response?.Trim();
                     response = response?.ToUpper();
-                    currency = CurrencyDatabase.Local().GetCurrency(response);
+                    currency = CurrencyDatabase.Local.GetCurrency(response);
                 }
                 catch (IndexOutOfRangeException)
                 {

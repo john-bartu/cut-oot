@@ -9,7 +9,7 @@ namespace TM_Lab_1
 {
     internal class CurrencyDatabase
     {
-        private static Dictionary<string, Currency> _currencyDictionary;
+        private readonly Dictionary<string, Currency> _currencyDictionary;
 
         static CurrencyDatabase()
         {
@@ -21,20 +21,15 @@ namespace TM_Lab_1
             Update();
         }
 
-        private static readonly CurrencyDatabase Instance = new();
+        public static CurrencyDatabase Local { get; } = new();
 
-        public static CurrencyDatabase Local()
-        {
-            return Instance;
-        }
-
-        public static void Update()
+        public void Update()
         {
             Console.WriteLine("[DB] Preparing for database update");
             Currency[] newCurrencies = XMLTools.CurrenciesRemoteGet();
             Console.WriteLine(newCurrencies.Length);
 
-            for (int i = 0; i < 3 && newCurrencies.Length == 0; i++)
+            for (var i = 0; i < 3 && newCurrencies.Length == 0; i++)
             {
                 Console.WriteLine($"[DB] Preparing for database update, retry: {i}");
                 Thread.Sleep(1000);
