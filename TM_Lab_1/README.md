@@ -20,3 +20,7 @@ przez użytkownika dowolnej ilości środka pieniężnego dowolnej waluty z�
 * [Całość część](CurrencyDatabase.cs#L12-L12)
 * [Singleton](CurrencyDatabase.cs#L11-L30)
 * ![UML Diagram](UMLProject.png)
+
+### Prezentacja:
+
+* ![Showcase Gif](ShowcaseProject.gif)
