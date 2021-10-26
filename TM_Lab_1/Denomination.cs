@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Headers;
 
 namespace TM_Lab_1
 {
@@ -33,9 +34,17 @@ namespace TM_Lab_1
                 var amount = float.Parse(parts[0]);
                 return new Denomination(CurrencyDatabase.Local().GetCurrency(currencyCode), amount);
             }
-            catch (IndexOutOfRangeException)
+            catch (Exception ex)
             {
-                return null;
+                if (ex is IndexOutOfRangeException or FormatException)
+                {
+                    return null;
+                }
+                else
+                {
+                    Console.WriteLine("Unexpected error during denomination parsing");
+                    return null;
+                }
             }
         }
 
