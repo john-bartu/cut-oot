@@ -1,0 +1,13 @@
+@startuml
+class Denomination {
+    + Denomination(currency:Currency, balance:float)
+    + Amount : float <<get>>
+'    + Currency : Currency <<get>>
+    + ExchangeTo(currency:Currency) : Denomination
+    + {static} Parse(parse:string) : Denomination
+    + <<override>> ToString() : string
+}
+
+
+Denomination "1" *-- "1" Currency
+@enduml

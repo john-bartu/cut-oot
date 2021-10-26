@@ -1,0 +1,15 @@
+@startuml
+class CurrencyDatabase {
+'    - {static} _currencyDictionary : Dictionary<string, Currency>
+    {static} Database()
+    - Database()
+    - {static} <<readonly>> Instance : Database
+    + {static} Local() : Database
+    + {static} Update() : void
+    + GetCurrency(currencyCode:string) : Currency
+    + GetCurrencies() : List<Currency>
+}
+
+CurrencyDatabase "1" *-- "many" Currency  : contains
+XMLTools ... CurrencyDatabase 
+@enduml

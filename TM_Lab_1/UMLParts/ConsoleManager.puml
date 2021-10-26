@@ -1,0 +1,11 @@
+@startuml
+class ConsoleManager {
+    + {static} PrintCurrencies() : void
+    + {static} PrintCurrenciesWithExchangeRate() : void
+    + {static} InputConfirm(title:string) : bool
+    + {static} InputProvideCash() : Denomination
+    + {static} InputProvideCurrency() : Currency
+}
+
+ConsoleManager ... CurrencyDatabase
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+class Account {
+'    - _balance : Denomination
+    + Account()
+    + Deposit(account:Denomination) : void
+    + ExchangeTo(currency:Currency) : void
+    + Balance() : Denomination
+}
+
+Account *-- Denomination 
+@enduml

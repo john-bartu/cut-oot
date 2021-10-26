@@ -1,0 +1,9 @@
+@startuml
+!include .\UMLParts\Account.puml
+!include .\UMLParts\ConsoleManager.puml
+!include .\UMLParts\Currency.puml
+!include .\UMLParts\CurrencyDatabase.puml
+!include .\UMLParts\Denomination.puml
+!include .\UMLParts\Program.puml
+!include .\UMLParts\XMLTools.puml
+@enduml

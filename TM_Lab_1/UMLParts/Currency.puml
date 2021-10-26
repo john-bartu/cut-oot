@@ -1,0 +1,10 @@
+@startuml
+class Currency {
+    + Currency(name:string, multiplier:int, code:string, exchangeRateAvg:float)
+    - Name : string <<get>>
+    + Multiplier : int <<get>>
+    + Code : string <<get>>
+    + AvgRate : float <<get>>
+    + <<override>> ToString() : string
+}
+@enduml
