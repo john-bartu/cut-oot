@@ -2,21 +2,27 @@ namespace TM_Lab_1
 {
     internal class Account
     {
-        private float _balance;
+        private Denomination _balance;
 
         public Account()
         {
-            _balance = 0;
+            _balance = new Denomination(Database.Local.GetCurrency("PL"), 0);
         }
 
         public void Deposit(Denomination account)
         {
-            _balance += account.Amount / account.Currency.Multiplier * account.Currency.AvgRate;
+            _balance = new Denomination(_balance.Currency,
+                _balance.Amount + account.convert_to(_balance.Currency).Amount);
         }
 
-        public Denomination Balance(Currency currency)
+        public void Convert(Currency currency)
         {
-            return new Denomination(currency, _balance * currency.Multiplier / currency.AvgRate);
+            _balance = _balance.convert_to(currency);
+        }
+
+        public Denomination Balance()
+        {
+            return _balance;
         }
     }
 }

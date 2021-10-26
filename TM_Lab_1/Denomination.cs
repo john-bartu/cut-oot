@@ -14,6 +14,12 @@ namespace TM_Lab_1
 
         public Currency Currency { get; }
 
+        public Denomination convert_to(Currency currency)
+        {
+            return new Denomination(currency,
+                (Currency.AvgRate / Currency.Multiplier) / (currency.Multiplier / currency.AvgRate) * Amount);
+        }
+
         public static Denomination Parse(string parse)
         {
             try

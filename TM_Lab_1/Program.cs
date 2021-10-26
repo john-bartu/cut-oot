@@ -7,15 +7,18 @@ namespace TM_Lab_1
         private static void Main(string[] args)
         {
             Database.Update();
-            var bank = new Account();
+            var userAccount = new Account();
+            
             bool end = false;
             while (!end)
             {
-                if (InputConfirm("Do you want deposit?"))
-                    bank.Deposit(InputProvideCash());
+                Console.WriteLine("Current balance: " + userAccount.Balance());
 
-                if (InputConfirm("Do you want check balance?"))
-                    Console.WriteLine("Balance: " + bank.Balance(InputProvideCurrency()));
+                if (InputConfirm("Do you want deposit?"))
+                    userAccount.Deposit(InputProvideCash());
+
+                if (InputConfirm("Do you want currency conversion?"))
+                    userAccount.Convert(InputProvideCurrency());
 
                 end = InputConfirm("Do you want to quit?");
             }
