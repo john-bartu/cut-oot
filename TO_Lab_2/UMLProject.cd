@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TO_Lab_2.Polar2DAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAEAQAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Polar2DAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TO_Lab_2.Polar2DInheritance">
+    <Position X="6.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Polar2DInheritance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TO_Lab_2.Program" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TO_Lab_2.Vector2D">
+    <Position X="8" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Vector2D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TO_Lab_2.Vector3DDecorator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAgAAgAAAAAAAAAAAIAAAAAAAQAAAAg=</HashCode>
+      <FileName>Vector3DDecorator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TO_Lab_2.Vector3DInheritance">
+    <Position X="9.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Vector3DInheritance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TO_Lab_2.IPolar2D" Collapsed="true">
+    <Position X="12.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IPolar2D.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TO_Lab_2.IVector" Collapsed="true">
+    <Position X="14.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IVector.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
