@@ -4,12 +4,12 @@ namespace TO_Lab_2
 {
     class Vector3DDecorator : IVector
     {
-        private IVector srcVector;
+        private Vector2D srcVector;
         private double z;
 
         public double abs()
         {
-            throw new NotImplementedException();
+            return Math.Sqrt(srcVector.X * srcVector.X + srcVector.Y * srcVector.Y + z * z);
         }
 
         public double cdot(IVector param)
@@ -19,7 +19,7 @@ namespace TO_Lab_2
 
         public double[] getComponents()
         {
-            throw new NotImplementedException();
+            return new[] {srcVector.X, srcVector.Y, z};
         }
 
         Vector3DDecorator cross(IVector param)

@@ -4,18 +4,18 @@ namespace TO_Lab_2
 {
     class Vector2D : IVector
     {
-        private double X { get; }
-        private double Y { get; }
+        public double X { get; }
+        public double Y { get; }
 
         public Vector2D(double y, double x)
         {
-            this.Y = y;
-            this.X = x;
+            Y = y;
+            X = x;
         }
 
         public double abs()
         {
-            throw new NotImplementedException();
+            return Math.Sqrt(X * X + Y * Y);
         }
 
         public double cdot(IVector param)
@@ -25,7 +25,7 @@ namespace TO_Lab_2
 
         public double[] getComponents()
         {
-            throw new NotImplementedException();
+            return new[] {X,Y};
         }
     }
 }

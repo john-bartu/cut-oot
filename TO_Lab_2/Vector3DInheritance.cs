@@ -14,7 +14,7 @@ namespace TO_Lab_2
 
         public new double abs()
         {
-            throw new NotImplementedException();
+            return Math.Sqrt(X * X + Y * Y + z * z);
         }
 
         public new IVector cdot(IVector param)
@@ -24,7 +24,7 @@ namespace TO_Lab_2
 
         public new double[] getComponents()
         {
-            throw new NotImplementedException();
+            return new[] {X, Y, z};
         }
     }
 }

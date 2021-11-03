@@ -13,8 +13,7 @@ namespace TO_Lab_2
 
         public double getAngle()
         {
-            // TODO Z użyciem funkcji cyklometrycznych zwrócić kąt między osią OX, a wektorem IVector
-            throw new NotImplementedException();
+            return Math.Atan(_srcVector.Y / _srcVector.X);
         }
 
         public double abs()

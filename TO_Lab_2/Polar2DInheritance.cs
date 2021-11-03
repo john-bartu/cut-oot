@@ -6,8 +6,7 @@ namespace TO_Lab_2
     {
         double getAngle()
         {
-            // TODO Z użyciem funkcji cyklometrycznych zwrócić kąt między osią OX, a wektorem IVector
-            throw new NotImplementedException();
+            return Math.Atan(Y / X);
         }
 
         public Polar2DInheritance(double y, double x) : base(y, x)
