@@ -9,16 +9,16 @@ namespace NutrientsProject.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class NutrientsController : BasicController<NutrientsController>
+    public class ProductsController : BasicController<ProductsController>
     {
-        public NutrientsController(ILogger<NutrientsController> logger) : base(logger)
+        public ProductsController(ILogger<ProductsController> logger) : base(logger)
         {
         }
 
-        [HttpGet(Name = "GetNutrientList")]
-        public IEnumerable<Nutrient> Get()
+        [HttpGet(Name = "GetProductList")]
+        public IEnumerable<Product> Get()
         {
-            return Database.GetAllNutrients();
+            return Database.GetAllProductsWithNutrients();
         }
     }
 }

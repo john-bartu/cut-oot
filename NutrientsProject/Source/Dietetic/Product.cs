@@ -9,7 +9,7 @@ namespace NutrientsProject.Source
         [Key]
         public int ProductID { get; set; }
         public string Name { get; set; }
-        public ICollection<NutrientProduct> NutrientProduct{ get; set; }
+        public ICollection<ProductNutrient> ProductNutrients{ get; set; }
 
         public Dictionary<Nutrient, double> GetNutrients()
         {
