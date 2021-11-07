@@ -11,14 +11,15 @@ namespace NutrientsProject.Controllers
     [Route("[controller]")]
     public class NutrientsController : BasicController<NutrientsController>
     {
-        public NutrientsController(ILogger<NutrientsController> logger) : base(logger)
-        {
-        }
-
         [HttpGet(Name = "GetNutrientList")]
         public IEnumerable<Nutrient> Get()
         {
-            return Database.GetAllNutrients();
+            // return Database.GetAllNutrients();
+            return null;
+        }
+
+        public NutrientsController(ILogger<NutrientsController> logger, DatabaseContext context) : base(logger, context)
+        {
         }
     }
 }

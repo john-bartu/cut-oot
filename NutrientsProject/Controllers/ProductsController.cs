@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NutrientsProject.Source;
+using Newtonsoft.Json;
 
 namespace NutrientsProject.Controllers
 {
@@ -11,14 +14,30 @@ namespace NutrientsProject.Controllers
     [Route("[controller]")]
     public class ProductsController : BasicController<ProductsController>
     {
-        public ProductsController(ILogger<ProductsController> logger) : base(logger)
+        public ProductsController(DatabaseContext context, ILogger<ProductsController> logger) : base(logger, context)
         {
         }
 
         [HttpGet(Name = "GetProductList")]
-        public IEnumerable<Product> Get()
+        public List<Product> Get()
         {
-            return Database.GetAllProductsWithNutrients();
+            List<Product> result =
+                _database
+                    .Products
+                    .Include(product => product.ProductNutrients)
+                    .ThenInclude(nutrient => nutrient.Nutrient)
+                    .ToList();
+
+            return result;
+        }
+
+
+        [HttpPost(Name = "PostProduct")]
+        public Product PostProduct(Product product)
+        {
+            // Database.Local().Products.Add(product);
+            // Database.Local().SaveChanges();
+            return product;
         }
     }
 }
