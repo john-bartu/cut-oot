@@ -4,7 +4,7 @@ namespace TO_Lab_2
 {
     class Polar2DAdapter : IPolar2D, IVector
     {
-        private readonly Vector2D _srcVector;
+        private Vector2D _srcVector;
 
         public Polar2DAdapter(Vector2D srcVector)
         {
@@ -29,6 +29,11 @@ namespace TO_Lab_2
         public double[] getComponents()
         {
             return _srcVector.getComponents();
+        }
+        
+        public override string ToString()
+        {
+            return $"Polar2DAdapter({_srcVector.X:0.00000},{_srcVector.Y:0.00000})";
         }
     }
 }
