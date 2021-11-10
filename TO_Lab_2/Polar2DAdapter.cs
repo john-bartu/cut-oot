@@ -4,7 +4,7 @@ namespace TO_Lab_2
 {
     class Polar2DAdapter : IPolar2D, IVector
     {
-        private Vector2D _srcVector;
+        private readonly Vector2D _srcVector;
 
         public Polar2DAdapter(Vector2D srcVector)
         {
@@ -14,6 +14,12 @@ namespace TO_Lab_2
         public double getAngle()
         {
             return Math.Atan(_srcVector.Y / _srcVector.X);
+        }
+
+ 
+        public override string ToString()
+        {
+            return $"Polar2DAdap({_srcVector.X:0.00000},{_srcVector.Y:0.00000})";
         }
 
         public double abs()
@@ -30,10 +36,13 @@ namespace TO_Lab_2
         {
             return _srcVector.getComponents();
         }
-        
-        public override string ToString()
+
+        public string Cartesian()
         {
-            return $"Polar2DAdapter({_srcVector.X:0.00000},{_srcVector.Y:0.00000})";
+            var r = abs();
+            var angle = getAngle() * 180 / Math.PI;
+            return $"f[{r:0.00}, {angle:0.00}°]";
         }
+        
     }
 }

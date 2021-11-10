@@ -58,7 +58,7 @@ namespace TO_Lab_2
         public override string ToString()
         {
             var srcComp = srcVector.getComponents();
-            return $"Vector3DDecorator({srcComp[0]:0.00000},{srcComp[1]:0.00000},{Z:0.00000})";
+            return $"Vector3DDec({srcComp[0]:0.00000},{srcComp[1]:0.00000},{Z:0.00000})";
         }
     }
 }

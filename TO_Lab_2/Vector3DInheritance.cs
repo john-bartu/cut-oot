@@ -6,10 +6,7 @@ namespace TO_Lab_2
     {
         private double Z { get; }
 
-        public Vector3DInheritance(double x, double y, double z) : base(x, y)
-        {
-            Z = z;
-        }
+        public Vector3DInheritance(double x, double y, double z) : base(x, y) => Z = z;
 
         public new double abs()
         {
@@ -45,7 +42,7 @@ namespace TO_Lab_2
 
         public override string ToString()
         {
-            return $"Vector3DInheritance({X:0.00000},{Y:0.00000},{Z:0.00000})";
+            return $"Vector3DInh({X:0.00000},{Y:0.00000},{Z:0.00000})";
         }
     }
 }
