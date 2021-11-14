@@ -11,7 +11,7 @@ namespace TO_Lab_4.Unit
     {
         public bool Infect()
         {
-            return new Random().Next(2) == 1;
+            return Random.Shared.Next(2) == 1;
         }
     };
 

@@ -1,11 +1,11 @@
 namespace TO_Lab_4.Unit
 {
-    public interface IHelath
+    public interface IHealth
     {
         bool InteractWith(Person person);
     };
 
-    class Healthy : IHelath
+    class Healthy : IHealth
     {
         public bool InteractWith(Person person)
         {
@@ -13,11 +13,11 @@ namespace TO_Lab_4.Unit
         }
     };
 
-    class Ill : IHelath
+    class Ill : IHealth
     {
         public bool InteractWith(Person person)
         {
-            return person.Symtomps.Infect();
+            return person.Symptoms.Infect();
         }
     };
 }

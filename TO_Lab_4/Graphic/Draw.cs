@@ -1,6 +1,6 @@
 using OpenTK;
 
-namespace TO_Lab_4
+namespace TO_Lab_4.Graphic
 {
     public class Draw
     {

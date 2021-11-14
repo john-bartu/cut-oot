@@ -1,3 +1,4 @@
+using System;
 using TO_Lab_4.Unit;
 
 namespace TO_Lab_4
@@ -19,7 +20,7 @@ namespace TO_Lab_4
     {
         public bool InteractWith(Person person)
         {
-            return person.Helath.InteractWith(person);
+            return person.Health.InteractWith(person);
         }
     };
 }

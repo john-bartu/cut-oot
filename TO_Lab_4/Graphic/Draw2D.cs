@@ -2,7 +2,7 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace TO_Lab_4
+namespace TO_Lab_4.Graphic
 {
     public class Draw2D : Draw
     {
@@ -42,6 +42,23 @@ namespace TO_Lab_4
                 var _y = r * Math.Sin(angle);
                 GL.Vertex2(x + _x, y + _y);
             }
+
+            GL.End();
+        }
+
+
+        public void draw_square(Vector2 bound1, Vector2 bound2, bool fill = false)
+        {
+            GL.Begin(fill ? PrimitiveType.Polygon : PrimitiveType.LineLoop);
+
+            GL.Color4(_color.R, _color.G, _color.B, _color.A);
+
+
+            GL.Vertex2(-bound1.X, -bound1.Y);
+            GL.Vertex2(-bound1.X, bound2.Y);
+            GL.Vertex2(bound2.X, bound2.Y);
+            GL.Vertex2(bound2.X, -bound1.Y);
+
 
             GL.End();
         }
