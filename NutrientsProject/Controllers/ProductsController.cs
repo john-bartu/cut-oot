@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NutrientsProject.Source;
-using Newtonsoft.Json;
 
 namespace NutrientsProject.Controllers
 {
@@ -21,7 +18,7 @@ namespace NutrientsProject.Controllers
         [HttpGet(Name = "GetProductList")]
         public List<Product> Get()
         {
-            List<Product> result =
+            var result =
                 _database
                     .Products
                     .Include(product => product.ProductNutrients)

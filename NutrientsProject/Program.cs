@@ -1,15 +1,10 @@
 using System;
-using System.Configuration;
-using System.Linq;
-using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NutrientsProject.Source;
-using Pomelo.EntityFrameworkCore.MySql;
-
 
 var builder = WebApplication.CreateBuilder(args);
 

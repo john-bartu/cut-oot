@@ -35,16 +35,16 @@ namespace NutrientsProject.Source
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            var carbohydrates = new Nutrient() { NutrientID = 1, Name = "Carbohydrates", Unit = "g" };
-            var fats = new Nutrient() { NutrientID = 2, Name = "Fats", Unit = "g" };
-            var proteins = new Nutrient() { NutrientID = 3, Name = "Protein", Unit = "g" };
+            var carbohydrates = new Nutrient { NutrientID = 1, Name = "Carbohydrates", Unit = "g" };
+            var fats = new Nutrient { NutrientID = 2, Name = "Fats", Unit = "g" };
+            var proteins = new Nutrient { NutrientID = 3, Name = "Protein", Unit = "g" };
 
-            var apple = new Product() { ProductID = 1, Name = "Apple" };
-            var banana = new Product() { ProductID = 2, Name = "Bannan" };
+            var apple = new Product { ProductID = 1, Name = "Apple" };
+            var banana = new Product { ProductID = 2, Name = "Bannan" };
 
-            var test1 = new ProductNutrient() { Product = apple, Nutrient = carbohydrates, Amount = 10 };
-            var test2 = new ProductNutrient() { Product = apple, Nutrient = fats, Amount = 20 };
-            var test3 = new ProductNutrient() { Product = banana, Nutrient = proteins, Amount = 20 };
+            var test1 = new ProductNutrient { Product = apple, Nutrient = carbohydrates, Amount = 10 };
+            var test2 = new ProductNutrient { Product = apple, Nutrient = fats, Amount = 20 };
+            var test3 = new ProductNutrient { Product = banana, Nutrient = proteins, Amount = 20 };
 
             apple.ProductNutrients = new List<ProductNutrient>();
             banana.ProductNutrients = new List<ProductNutrient>();
@@ -54,9 +54,9 @@ namespace NutrientsProject.Source
             banana.ProductNutrients.Add(test3);
 
 
-            this.Products.Add(apple);
-            this.Products.Add(banana);
-            this.SaveChanges();
+            Products.Add(apple);
+            Products.Add(banana);
+            SaveChanges();
         }
 
         public List<Product> GetAllProductsWithNutrients()
