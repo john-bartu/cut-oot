@@ -8,16 +8,22 @@ import pl.retsuz.shell.variations.gen.ICommandVariation;
 
 public class RM_Path extends CommandVariation {
     public RM_Path(ICommandVariation next, ICommand parent) {
-        super(next,parent,"[a-zA-Z0-9.l\\/_]*");
+        super(next, parent, "[a-zA-Z0-9.l\\/_]*");
     }
+
     @Override
     public void make(String params) {
 
-        Composite c= (Composite) (this.getParent().getContext().getCurrent());
+        Composite c = (Composite) (this.getParent().getContext().getCurrent());
+
         try {
+
             IComposite elem = c.findElementByPath(params);
-            c.removeElement(elem);
-        }catch(Exception e){
+            Composite parent = (Composite) elem.getParent();
+            parent.removeElement(elem);
+
+
+        } catch (Exception e) {
             System.out.println("Docelowy element nie jest katalogiem lub obecny katalog nie zawiera elementu.");
         }
 
