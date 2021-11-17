@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -10,8 +11,14 @@ namespace TO_Lab_4.Graphic
         private Matrix4 modelViewMatrix;
         private Vector3 cameraPosition = new Vector3(Population.Bound / 2, Population.Bound / 2, Population.Bound);
         private Vector3 cameraTarget = new Vector3(Population.Bound / 2, Population.Bound / 2, 0);
-        private Vector3 cameraUp = Vector3.UnitX;
+        private Vector3 cameraUp = Vector3.UnitY;
+        public static Stopwatch Stopwatch;
 
+        public Camera()
+        {
+            Stopwatch = new Stopwatch();
+            Stopwatch.Start();
+        }
 
         public void Perspective(double Width, double Height)
         {
@@ -22,6 +29,9 @@ namespace TO_Lab_4.Graphic
 
         public void Orthographic(double width, double height)
         {
+            cameraPosition = new Vector3(Population.Bound / 2, Population.Bound / 2, Population.Bound);
+            cameraTarget = new Vector3(Population.Bound / 2, Population.Bound / 2, 0);
+            
             SetOrthographicProjection(width, height);
         }
 
@@ -46,7 +56,7 @@ namespace TO_Lab_4.Graphic
             var aspect = width / height;
 
 
-            var size = Population.Bound/2+5;
+            var size = Population.Bound / 2 + 5;
             if (aspect < 1)
                 GL.Ortho(-size, size, -size * (1 / aspect), size * (1 / aspect), 1000f, -1000f);
             else
@@ -55,7 +65,23 @@ namespace TO_Lab_4.Graphic
 
         private void SetLookAtCamera(Vector3 position, Vector3 target, Vector3 up)
         {
+            // var time = Stopwatch.ElapsedMilliseconds;
+            //
+            // var test = (time * 0.1);
+            // Console.WriteLine(test);
+            //
+            // var angle = 2.0 * Math.PI * test / 360;
+            //
+            // var x = 25 * Math.Cos(angle);
+            // var y = 25 * Math.Sin(angle);
+            //
+            //
+            // position.X = (float)Population.Bound/2;
+            // position.Y = (float)x;
+            // position.Z = (float)Population.Bound;
             modelViewMatrix = Matrix4.LookAt(position, target, up);
+
+
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref modelViewMatrix);
         }

@@ -6,41 +6,32 @@ namespace TO_Lab_4.Graphic
 {
     public class Draw2D : Draw
     {
-        public void draw_circle(Vector2 vector2, float r, bool fill = false)
+        public Draw2D()
         {
-            draw_circle(vector2.X, vector2.Y, r, 180, fill);
         }
 
-        /**
-         * Draws a Circle.
-         * @param x The x coordinate of center of circle
-         * @param y The y of center of circle
-         * @param r Radius of circle
-         */
-        public void draw_circle(float x, float y, float r, bool fill = false)
+        public Draw2D(Color color) : base(color)
         {
-            draw_circle(x, y, r, 180, fill);
         }
 
-        /**
-     * Draws a Circle.
-     * @param x The x coordinate of center of circle
-     * @param y The y of center of circle
-     * @param r Radius of circle
-     * @param quality quality of circle (4-360)
-     */
-        public void draw_circle(float x, float y, float r, int quality, bool fill = false)
+
+        public void draw_circle(Vector2 vector, float r, bool fill = false)
+        {
+            draw_circle(vector, r, 180, fill);
+        }
+
+        public void draw_circle(Vector2 vector, float r, int quality, bool fill = false)
         {
             GL.Begin(fill ? PrimitiveType.Polygon : PrimitiveType.LineLoop);
 
-            GL.Color4(_color.R, _color.G, _color.B, _color.A);
+            GL.Color4(Color.R, Color.G, Color.B, Color.A);
 
-            for (int i = 0; i < quality; i++)
+            for (var i = 0; i < quality; i++)
             {
                 var angle = 2.0 * Math.PI * i / quality;
-                var _x = r * Math.Cos(angle);
-                var _y = r * Math.Sin(angle);
-                GL.Vertex2(x + _x, y + _y);
+                var x = r * Math.Cos(angle);
+                var y = r * Math.Sin(angle);
+                GL.Vertex2(vector.X + x, vector.Y + y);
             }
 
             GL.End();
@@ -51,14 +42,12 @@ namespace TO_Lab_4.Graphic
         {
             GL.Begin(fill ? PrimitiveType.Polygon : PrimitiveType.LineLoop);
 
-            GL.Color4(_color.R, _color.G, _color.B, _color.A);
-
+            GL.Color4(Color.R, Color.G, Color.B, Color.A);
 
             GL.Vertex2(-bound1.X, -bound1.Y);
             GL.Vertex2(-bound1.X, bound2.Y);
             GL.Vertex2(bound2.X, bound2.Y);
             GL.Vertex2(bound2.X, -bound1.Y);
-
 
             GL.End();
         }

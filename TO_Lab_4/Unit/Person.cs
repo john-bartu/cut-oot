@@ -4,48 +4,92 @@ namespace TO_Lab_4.Unit
 {
     public class Person : BodyPerson, ICloneable
     {
-        public Person(IResistance resistance, IHealth health)
+        public Person(State state)
         {
-            Resistance = resistance;
-            Health = health;
-            Symptoms = new Asymptomatic();
-            IllTime = -1;
+            State = state;
+            IllTime = Random.Shared.NextSingle() * 10 + 20;
+            TimeSinceInfected = 0;
         }
 
-        public IResistance Resistance { get; set; }
-        public IHealth Health { get; set; }
-        public ISymtomps Symptoms { get; set; }
 
         public float IllTime { get; set; }
+        public float TimeSinceInfected { get; set; }
+        public State State { get; set; }
 
-        public bool TouchedBy(Person person)
+        public void Context(State state)
         {
-            if (GetDistanceTo(person) < 2 && IllTime < 0)
+            TransitionTo(state);
+        }
+
+        public void TransitionTo(State state)
+        {
+            // Console.WriteLine($"Context: Transition to {state.GetType().Name}.");
+            State = state;
+            State.SetContext(this);
+        }
+
+
+        public void RequestImmune()
+        {
+            State.HandleImmune();
+        }
+
+        public void RequestVulnerable()
+        {
+            State.HandleVulnerable();
+        }
+
+
+        public void RequestSymptomatic()
+        {
+            State.HandleSymptomatic();
+        }
+
+        public void RequestAsymptomatic()
+        {
+            State.HandleAsymptomatic();
+        }
+
+
+        public void TouchedBy(Person person)
+        {
+            switch (person.State)
             {
-                return Resistance.InteractWith(person);
+                case SymptomaticState:
+                    MakeIll();
+                    break;
+                case
+                    AsymptomaticState:
+                    if (Random.Shared.Next(2) == 0)
+                        MakeIll();
+                    break;
             }
-            else
-                return false;
+        }
+
+
+        public void Tick(float multiplier)
+        {
+            if (State is SymptomaticState || State is AsymptomaticState)
+                TimeSinceInfected += multiplier;
+
+            if (TimeSinceInfected >= IllTime)
+                RequestImmune();
+
+            Move(multiplier);
         }
 
         public void MakeIll()
         {
-            Health = new Ill();
-            IllTime = Random.Shared.NextSingle() * 10 + 20;
-            Symptoms = Random.Shared.Next(2) == 0 ? new Asymptomatic() : new Symptomatic();
-        }
-
-        public void MakeImmune()
-        {
-            Resistance = new Immunize();
-            Health = new Healthy();
+            if (Random.Shared.Next(2) == 0)
+                RequestSymptomatic();
+            else
+                RequestAsymptomatic();
         }
 
         public object Clone()
         {
-            Person copyPerson = new(Resistance, Health)
+            Person copyPerson = new(State)
             {
-                Symptoms = Symptoms,
                 IllTime = IllTime,
                 position = position,
                 movement = movement

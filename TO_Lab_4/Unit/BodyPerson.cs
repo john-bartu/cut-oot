@@ -10,28 +10,22 @@ namespace TO_Lab_4.Unit
             // Console.WriteLine(position);
             RandomizeDirection();
         }
-        
+
 
         public Vector2 position { get; set; }
         protected Vector2 movement { get; set; }
-
-        double GetSpeed()
-        {
-            return Math.Sqrt(movement.X * movement.X + movement.Y * movement.Y);
-        }
-
+        
         void RandomizeDirection()
         {
-            var maxX = (float)Math.Sqrt(2.5);
-            var newX = Random.Shared.NextSingle() * maxX - maxX / 2;
+            var speed = Random.Shared.NextSingle() * 2.5;
+            var angle = Random.Shared.NextSingle() * 360;
 
+            var x = (float)(speed * Math.Cos(angle));
+            var y = (float)(speed * Math.Sin(angle));
 
-            var maxY = (float)Math.Sqrt(2.5-maxX);
-            var newY = Random.Shared.NextSingle() * maxY - maxY / 2;
+            movement = new Vector2(x, y);
 
-            movement = new Vector2(newX, newY);
-
-            // Console.WriteLine($"Speed {GetSpeed()}");
+            // Console.WriteLine($"Speed {movement.Length}");
         }
 
         public double GetDistanceTo(Person person)
@@ -45,26 +39,20 @@ namespace TO_Lab_4.Unit
 
         public void Move(float multiplier)
         {
-            
             position += movement * multiplier;
-            
-            if ( Random.Shared.Next(100) < 5) RandomizeDirection();
-            
-            if (OutOfBound())
-            {
-                var newMove = new Vector2(
-                    Population.Bound /2 - position.X,
-                    Population.Bound /2 - position.Y
-                );
 
-                var scale = newMove.LengthFast;
-                movement = newMove / scale;
-            }
+            if (Random.Shared.NextSingle() < .02) RandomizeDirection();
         }
 
-        private bool OutOfBound()
+        public void MoveTowards(Vector2 vector)
         {
-            return position.X < 0 || position.X > Population.Bound || position.Y < 0 || position.Y > Population.Bound;
+            var newMove = new Vector2(
+                vector.X - position.X,
+                vector.Y - position.Y
+            );
+
+            var scale = newMove.Length;
+            movement = newMove / scale * 2.5f;
         }
     }
 }

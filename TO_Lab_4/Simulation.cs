@@ -20,16 +20,19 @@ namespace TO_Lab_4
         private int _step;
         private Population Originator { get; }
 
+        public int GetMemorieCount()
+        {
+            return mementos.Count;
+        }
 
         public Simulation()
         {
             mementos = new();
-            Originator = new Population(100, 10, 20);
+            Originator = new Population(1000, 10, 50);
             Simulate();
             _step = 0;
-            
-            SimulateN(100);
 
+            // SimulateN(1000);
         }
 
         public void Simulate()

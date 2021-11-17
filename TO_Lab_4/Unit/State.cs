@@ -2,89 +2,116 @@ using System;
 
 namespace TO_Lab_4.Unit
 {
-    class Context
+    public abstract class State
     {
-        private State _state = null;
+        protected Person person;
 
-        public Context(State state)
+        public void SetContext(Person person)
         {
-            TransitionTo(state);
-        }
-        
-        public void TransitionTo(State state)
-        {
-            Console.WriteLine($"Context: Transition to {state.GetType().Name}.");
-            _state = state;
-            _state.SetContext(this);
-        }
-        
-
-        public void HandleImmune(){}
-        public void HandleVulnerable(){}
-        public void HandleHealthy(){}
-        public void HandleIll(){}
-        public void HandleSymptomatic(){}
-        public void HandleAsymptomatic(){}
-    }
-    
-    abstract class State
-    {
-        protected Context _context;
-
-        public void SetContext(Context context)
-        {
-            _context = context;
+            this.person = person;
         }
 
-        public abstract bool Handle1();
 
-        public abstract bool Handle2();
+        public abstract void HandleImmune();
+
+        // Healthy
+        public abstract void HandleVulnerable();
+
+
+        //Ill
+        public abstract void HandleSymptomatic();
+
+        //Ill
+        public abstract void HandleAsymptomatic();
     }
 
-    class SImmunize : State
+    class ImmuneState : State
     {
-        public override bool Handle1()
+        public override void HandleImmune()
         {
-            Console.WriteLine("Jestem odporny");
-            return false;
         }
 
-        public override bool Handle2()
+        public override void HandleVulnerable()
         {
-            Console.WriteLine("Jestem nieodporny");
-            return true;
+        }
+
+
+        public override void HandleSymptomatic()
+        {
+        }
+
+        public override void HandleAsymptomatic()
+        {
         }
     }
-    
-    class SHealth : State
+
+    class VulnerableState : State
     {
-        public override bool Handle1()
+        public override void HandleImmune()
         {
-            Console.WriteLine("Jestem zdrowy");
-            return false;
+           // throw new Exception("I need to be sick to get immune");
         }
 
-        public override bool Handle2()
+        public override void HandleVulnerable()
         {
-            Console.WriteLine("Jestem chory");
-            _context.TransitionTo(new SSymtomps());
-            return true;
+           // throw new Exception("I am already vulnerable");
+        }
+
+
+        public override void HandleSymptomatic()
+        {
+            person.TransitionTo(new SymptomaticState());
+        }
+
+        public override void HandleAsymptomatic()
+        {
+            person.TransitionTo(new AsymptomaticState());
         }
     }
-    
-    class SSymtomps : State
+
+    class SymptomaticState : State
     {
-        public override bool Handle1()
+        public override void HandleImmune()
         {
-            Console.WriteLine("Jestem zdrowy");
-            return false;
+            person.TransitionTo(new ImmuneState());
         }
 
-        public override bool Handle2()
+        public override void HandleVulnerable()
         {
-            Console.WriteLine("Jestem zarażony");
-            _context.TransitionTo(new SHealth());
-            return true;
+            person.TransitionTo(new VulnerableState());
+        }
+
+        public override void HandleSymptomatic()
+        {
+            //throw new Exception("I am already asymptomatic");
+        }
+
+        public override void HandleAsymptomatic()
+        {
+            //throw new Exception("I am asymptomatic");
+        }
+    }
+
+    class AsymptomaticState : State
+    {
+        public override void HandleImmune()
+        {
+            person.TransitionTo(new ImmuneState());
+        }
+
+        public override void HandleVulnerable()
+        {
+            person.TransitionTo(new VulnerableState());
+        }
+
+        public override void HandleSymptomatic()
+        {
+            //throw new Exception("I am asymptomatic");
+        }
+
+        public override void HandleAsymptomatic()
+        {
+            //throw new Exception("I am already asymptomatic");
         }
     }
 }

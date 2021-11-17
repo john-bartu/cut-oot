@@ -5,6 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using TO_Lab_4.Graphic;
+using TO_Lab_4.Unit;
 
 namespace TO_Lab_4
 {
@@ -49,16 +50,34 @@ namespace TO_Lab_4
 
             if (input.IsKeyDown(Key.Right))
             {
-                _simulation.Next();
+                _simulation.Simulate();
+                for (int i = 0; i < 15; i++)
+                    if (_simulation.CurrentId() < _simulation.MaxId())
+                        _simulation.Next();
             }
 
             if (input.IsKeyDown(Key.Left))
             {
-                _simulation.Previous();
+                _simulation.Simulate();
+                for (int i = 0; i < 15; i++)
+                    _simulation.Previous();
+            }
+            else
+            {
+                _simulation.Next();
             }
 
 
-            _simulation.Next();
+            if (input.IsKeyDown(Key.Up))
+            {
+                Population.Bound += 2f;
+            }
+
+            if (input.IsKeyDown(Key.Down))
+            {
+                Population.Bound -= 2f;
+            }
+
             base.OnUpdateFrame(e);
         }
 
@@ -76,42 +95,46 @@ namespace TO_Lab_4
             SwapBuffers();
         }
 
-        Draw2D green = new Draw2D();
-        Draw2D red = new Draw2D();
-        Draw2D blue = new Draw2D();
+
+        Draw2D white = new(Color.White);
+        Draw2D red = new(Color.Red);
+        Draw2D green = new(new(0, 255, 0, 255));
+        Draw2D blue = new(Color.Blue);
+        Draw2D yellow = new(Color.Yellow);
+
+        private Draw3D test = new(Color.Black);
         private Simulation _simulation = new();
-        
+
 
         void RenderScene(FrameEventArgs e)
         {
-            red.SetColor(255, 0, 0);
-            blue.SetColor(0, 255, 255);
-            
-            blue.draw_circle(Vector2.Zero,1f,true);
-            blue.draw_circle(Vector2.One*2,1f,true);
-            
+            // blue.draw_circle(Vector2.Zero, 1f, true);
+            // blue.draw_circle(Vector2.One * 2, 1f, true);
             blue.draw_square(Vector2.Zero, new Vector2(Population.Bound, Population.Bound));
+
             foreach (var person in _simulation.Current())
             {
-                if (person.IllTime > 0)
+                switch (person.State)
                 {
-                    red.draw_circle(person.position, 2f);
-                    red.draw_circle(person.position, 0.5f, true);
-                }
-                else
-                {
-                    green.draw_circle(person.position, 0.5f, true);
-                }
+                    case ImmuneState:
+                        // test.cube(new Vector3(person.position.X, person.position.Y, 0), 1, 1, 1);
+                        white.draw_circle(person.position, 0.5f, true);
+                        break;
+                    case VulnerableState:
+                        green.draw_circle(person.position, 0.5f, true);
+                        break;
 
+                    case SymptomaticState:
+                        red.draw_circle(person.position, 2f);
+                        red.draw_circle(person.position, 0.5f, true);
+                        break;
 
-                if (person.IllTime == 0)
-                {
-                    person.MakeImmune();
-                    // Console.WriteLine(person.IllTime);
+                    case AsymptomaticState:
+                        red.draw_circle(person.position, 2f);
+                        yellow.draw_circle(person.position, 0.5f, true);
+                        break;
                 }
             }
-
-            // _simulation.Next();
         }
 
         protected override void OnResize(EventArgs e)

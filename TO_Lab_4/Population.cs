@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using OpenTK;
+using TO_Lab_4.Graphic;
 using TO_Lab_4.Unit;
 
 namespace TO_Lab_4
@@ -9,7 +10,9 @@ namespace TO_Lab_4
     public class Population
     {
         public List<Person> People { get; } = new();
-        public static float Bound { get; } = 100;
+        public static float Bound { get; set; } = 50;
+        public static float Multiplier { get; } = 1f / 25f;
+        public static float PopulizeRate { get; } = 0.4f;
 
         private int ImmuneProb { get; }
         private int IllnessProb { get; }
@@ -29,18 +32,18 @@ namespace TO_Lab_4
 
         private Vector2 RandomPosition()
         {
-            int number = Random.Shared.Next(5);
+            int number = Random.Shared.Next(4);
             // Console.WriteLine(number);
             switch (number)
             {
                 case 0:
-                    return new Vector2(0, Random.Shared.NextSingle() * Population.Bound);
+                    return new Vector2(0, Random.Shared.NextSingle() * Bound);
                 case 1:
-                    return new Vector2(Population.Bound, Random.Shared.NextSingle() * Population.Bound);
+                    return new Vector2(Bound, Random.Shared.NextSingle() * Bound);
                 case 2:
-                    return new Vector2(Random.Shared.NextSingle() * Population.Bound, Population.Bound);
-                case 4:
-                    return new Vector2(Random.Shared.NextSingle() * Population.Bound, 0);
+                    return new Vector2(Random.Shared.NextSingle() * Bound, Bound);
+                case 3:
+                    return new Vector2(Random.Shared.NextSingle() * Bound, 0);
                 default:
                     return new Vector2();
             }
@@ -57,12 +60,12 @@ namespace TO_Lab_4
 
         Person Born()
         {
+            bool isImmune = Random.Shared.Next(100) < ImmuneProb;
             bool isIll = Random.Shared.Next(100) < IllnessProb;
 
-            IResistance resistance = Random.Shared.Next(100) < ImmuneProb ? new Immunize() : new UnImminize();
-            IHealth health = isIll ? new Healthy() : new Ill();
+            Person person = new(isImmune ? new ImmuneState() : new VulnerableState());
+            person.State.SetContext(person);
 
-            Person person = new(resistance, health);
             if (isIll)
                 person.MakeIll();
 
@@ -71,22 +74,58 @@ namespace TO_Lab_4
 
         public void Step()
         {
-            foreach (var person in People)
+            // Bound = (float)(Bound + Math.Sin(Camera.Stopwatch.ElapsedMilliseconds / 75.0) * 25);
+            //
+
+            Popularize();
+
+            for (int i = People.Count - 1; i >= 0; i--)
             {
-                person.Move(0.04f);
-                person.IllTime -= 1;
+                Person person = People[i];
+                person.Tick(Multiplier);
 
                 foreach (var person2 in People)
                 {
-                    if (person != person2)
+                    if (person != person2 && person.GetDistanceTo(person2) < 2)
                     {
-                        if (person.TouchedBy(person2))
-                        {
-                            person.MakeIll();
-                        }
+                        person.TouchedBy(person2);
                     }
                 }
+
+                OutOfBoundCheck(person);
             }
+        }
+
+        private void Popularize()
+        {
+            if (Random.Shared.NextSingle() < PopulizeRate)
+            {
+                Person person = Born();
+                person.position = RandomPosition();
+                People.Add(person);
+            }
+        }
+
+
+        private void OutOfBoundCheck(Person person)
+        {
+            if (OutOfBound(person.position))
+            {
+                if (Random.Shared.Next(2) == 0)
+                    person.MoveTowards(new(Population.Bound / 2, Population.Bound / 2));
+                else
+                    Suicide(person);
+            }
+        }
+
+        private void Suicide(Person person)
+        {
+            People.Remove(person);
+        }
+
+        private bool OutOfBound(Vector2 position)
+        {
+            return position.X < 0 || position.X > Bound || position.Y < 0 || position.Y > Bound;
         }
     }
 }
