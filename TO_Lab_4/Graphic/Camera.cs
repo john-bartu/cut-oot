@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -9,30 +8,33 @@ namespace TO_Lab_4.Graphic
     {
         private Matrix4 projectionMatrix;
         private Matrix4 modelViewMatrix;
-        private Vector3 cameraPosition = new Vector3(Population.Bound / 2, Population.Bound / 2, Population.Bound);
-        private Vector3 cameraTarget = new Vector3(Population.Bound / 2, Population.Bound / 2, 0);
-        private Vector3 cameraUp = Vector3.UnitY;
-        public static Stopwatch Stopwatch;
 
-        public Camera()
-        {
-            Stopwatch = new Stopwatch();
-            Stopwatch.Start();
-        }
+        private Vector3 cameraPosition = new Vector3(0, 0, 0);
+        private Vector3 cameraTarget = new Vector3(0, 0, 0);
+        private Vector3 cameraUp = Vector3.UnitY;
+
+        public Vector3 cameraDelta;
+
 
         public void Perspective(double Width, double Height)
         {
             SetPerspectiveProjection(Width, Height, 55); // 45 is in degrees
-            SetLookAtCamera(cameraPosition, cameraTarget, cameraUp);
+            SetLookAtCamera(
+                cameraPosition + cameraDelta,
+                cameraTarget + cameraDelta,
+                cameraUp);
+        }
+
+        public void SetupSize(float size)
+        {
+            cameraPosition = new Vector3(size / 2f, size / 2f, size);
+            cameraTarget = new Vector3(size / 2f, size / 2f, 0);
         }
 
 
-        public void Orthographic(double width, double height)
+        public void Orthographic(double width, double height, double size)
         {
-            cameraPosition = new Vector3(Population.Bound / 2, Population.Bound / 2, Population.Bound);
-            cameraTarget = new Vector3(Population.Bound / 2, Population.Bound / 2, 0);
-            
-            SetOrthographicProjection(width, height);
+            SetOrthographicProjection(width, height, size);
         }
 
         private void SetPerspectiveProjection(double width, double height, double FOV)
@@ -41,13 +43,13 @@ namespace TO_Lab_4.Graphic
                 (float)(Math.PI * (FOV / 180)),
                 (float)(width / height),
                 0.2f,
-                Population.Bound * 2
+                cameraPosition.Y * 8
             );
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref projectionMatrix); // this replaces the old matrix, no need for GL.LoadIdentity()
         }
 
-        private void SetOrthographicProjection(double width, double height)
+        private void SetOrthographicProjection(double width, double height, double size)
         {
             projectionMatrix = Matrix4.Identity;
             GL.MatrixMode(MatrixMode.Projection);
@@ -56,11 +58,11 @@ namespace TO_Lab_4.Graphic
             var aspect = width / height;
 
 
-            var size = Population.Bound / 2 + 5;
+            var halfSize = size / 2 + 5;
             if (aspect < 1)
-                GL.Ortho(-size, size, -size * (1 / aspect), size * (1 / aspect), 1000f, -1000f);
+                GL.Ortho(-halfSize, halfSize, -halfSize * (1 / aspect), halfSize * (1 / aspect), 1000f, -1000f);
             else
-                GL.Ortho(-size * aspect, size * aspect, -size, size, 1000f, -1000f);
+                GL.Ortho(-halfSize * aspect, halfSize * aspect, -halfSize, halfSize, 1000f, -1000f);
         }
 
         private void SetLookAtCamera(Vector3 position, Vector3 target, Vector3 up)
@@ -76,9 +78,11 @@ namespace TO_Lab_4.Graphic
             // var y = 25 * Math.Sin(angle);
             //
             //
-            // position.X = (float)Population.Bound/2;
+            // position.X = (float)Population.Bound / 2;
             // position.Y = (float)x;
             // position.Z = (float)Population.Bound;
+
+
             modelViewMatrix = Matrix4.LookAt(position, target, up);
 
 

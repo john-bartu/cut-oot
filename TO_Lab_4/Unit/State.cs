@@ -11,12 +11,10 @@ namespace TO_Lab_4.Unit
             this.person = person;
         }
 
-
         public abstract void HandleImmune();
 
         // Healthy
         public abstract void HandleVulnerable();
-
 
         //Ill
         public abstract void HandleSymptomatic();
@@ -35,7 +33,6 @@ namespace TO_Lab_4.Unit
         {
         }
 
-
         public override void HandleSymptomatic()
         {
         }
@@ -45,7 +42,7 @@ namespace TO_Lab_4.Unit
         }
     }
 
-    class VulnerableState : State
+    class HealthySoVulnerableState : State
     {
         public override void HandleImmune()
         {
@@ -56,8 +53,7 @@ namespace TO_Lab_4.Unit
         {
            // throw new Exception("I am already vulnerable");
         }
-
-
+        
         public override void HandleSymptomatic()
         {
             person.TransitionTo(new SymptomaticState());
@@ -78,7 +74,7 @@ namespace TO_Lab_4.Unit
 
         public override void HandleVulnerable()
         {
-            person.TransitionTo(new VulnerableState());
+            person.TransitionTo(new HealthySoVulnerableState());
         }
 
         public override void HandleSymptomatic()
@@ -101,7 +97,7 @@ namespace TO_Lab_4.Unit
 
         public override void HandleVulnerable()
         {
-            person.TransitionTo(new VulnerableState());
+            person.TransitionTo(new HealthySoVulnerableState());
         }
 
         public override void HandleSymptomatic()

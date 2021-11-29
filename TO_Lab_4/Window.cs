@@ -17,17 +17,37 @@ namespace TO_Lab_4
         private GraphicsContext _context1;
         private GraphicsContext _context2;
 
-        public SingleWindow() : base(1280, 720, GraphicsMode.Default, "Visualization",
+        private Simulation _simulation;
+
+        public SingleWindow(Simulation simulation) : base(1280, 720, GraphicsMode.Default, "Visualization",
             GameWindowFlags.Default,
             DisplayDevice.Default, 4, 2, GraphicsContextFlags.ForwardCompatible)
         {
             VSync = VSyncMode.On;
             _timer.Start();
 
+            _simulation = simulation;
 
+            _camera.SetupSize(_simulation.GetBound());
             _context1 = new GraphicsContext(GraphicsMode.Default, WindowInfo);
             _context2 = new GraphicsContext(GraphicsMode.Default, WindowInfo);
-            this.MakeCurrent();
+            MakeCurrent();
+        }
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            _camera.cameraDelta.Z -= e.Delta * 2;
+            base.OnMouseWheel(e);
+        }
+
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                _simulation.PlayPause();
+            }
+
+            base.OnKeyDown(e);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -50,16 +70,22 @@ namespace TO_Lab_4
 
             if (input.IsKeyDown(Key.Right))
             {
-                _simulation.Simulate();
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 10; i++)
                     if (_simulation.CurrentId() < _simulation.MaxId())
                         _simulation.Next();
             }
 
+            if (input.IsKeyDown(Key.R))
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    _simulation.Simulate();
+                }
+            }
+
             if (input.IsKeyDown(Key.Left))
             {
-                _simulation.Simulate();
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 10; i++)
                     _simulation.Previous();
             }
             else
@@ -68,16 +94,40 @@ namespace TO_Lab_4
             }
 
 
-            if (input.IsKeyDown(Key.Up))
+            if (input.IsKeyDown(Key.W))
             {
-                Population.Bound += 2f;
+                _camera.cameraDelta.Y += 1;
             }
 
-            if (input.IsKeyDown(Key.Down))
+            if (input.IsKeyDown(Key.S))
             {
-                Population.Bound -= 2f;
+                _camera.cameraDelta.Y -= 1;
             }
 
+            if (input.IsKeyDown(Key.Q))
+            {
+                _camera.cameraDelta.Z += 1;
+            }
+
+            if (input.IsKeyDown(Key.E))
+            {
+                _camera.cameraDelta.Z -= 1;
+            }
+
+
+            if (input.IsKeyDown(Key.A))
+            {
+                _camera.cameraDelta.X -= 1;
+            }
+
+            if (input.IsKeyDown(Key.D))
+            {
+                _camera.cameraDelta.X += 1;
+            }
+            
+            _simulation.Simulate();
+            Console.WriteLine($"Frame: {_simulation.CurrentId()} / {_simulation.MaxId()}");
+            
             base.OnUpdateFrame(e);
         }
 
@@ -90,7 +140,7 @@ namespace TO_Lab_4
 
             RenderScene(e);
             // UI
-            _camera.Orthographic(Width, Height);
+            _camera.Orthographic(Width, Height, _simulation.GetBound());
 
             SwapBuffers();
         }
@@ -102,38 +152,37 @@ namespace TO_Lab_4
         Draw2D blue = new(Color.Blue);
         Draw2D yellow = new(Color.Yellow);
 
-        private Draw3D test = new(Color.Black);
-        private Simulation _simulation = new();
 
+        void DrawPerson(Person person)
+        {
+            switch (person.State)
+            {
+                case ImmuneState:
+                    white.draw_circle(person.Position, 0.25f, true);
+                    break;
+                case HealthySoVulnerableState:
+                    green.draw_circle(person.Position, 0.25f, true);
+                    break;
+
+                case SymptomaticState:
+                    red.draw_circle(person.Position, 2f);
+                    red.draw_circle(person.Position, 0.25f, true);
+                    break;
+
+                case AsymptomaticState:
+                    red.draw_circle(person.Position, 2f);
+                    yellow.draw_circle(person.Position, 0.25f, true);
+                    break;
+            }
+        }
 
         void RenderScene(FrameEventArgs e)
         {
-            // blue.draw_circle(Vector2.Zero, 1f, true);
-            // blue.draw_circle(Vector2.One * 2, 1f, true);
-            blue.draw_square(Vector2.Zero, new Vector2(Population.Bound, Population.Bound));
+            blue.draw_square(Vector2.Zero, new Vector2(_simulation.GetBound(), _simulation.GetBound()));
 
             foreach (var person in _simulation.Current())
             {
-                switch (person.State)
-                {
-                    case ImmuneState:
-                        // test.cube(new Vector3(person.position.X, person.position.Y, 0), 1, 1, 1);
-                        white.draw_circle(person.position, 0.5f, true);
-                        break;
-                    case VulnerableState:
-                        green.draw_circle(person.position, 0.5f, true);
-                        break;
-
-                    case SymptomaticState:
-                        red.draw_circle(person.position, 2f);
-                        red.draw_circle(person.position, 0.5f, true);
-                        break;
-
-                    case AsymptomaticState:
-                        red.draw_circle(person.position, 2f);
-                        yellow.draw_circle(person.position, 0.5f, true);
-                        break;
-                }
+                DrawPerson(person);
             }
         }
 

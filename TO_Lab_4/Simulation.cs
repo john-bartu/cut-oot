@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TO_Lab_4.Unit;
 
@@ -16,30 +17,51 @@ namespace TO_Lab_4
 
     public class Simulation
     {
-        private List<List<Person>> mementos;
+        private bool IsRunning { get; set; } = false;
+        private readonly List<List<Person>> _mementos;
+        private Stopwatch _stopwatch = Stopwatch.StartNew();
+        private int lastCheck = 0;
+        private long lastTimeCheck = 0;
+
         private int _step;
-        private Population Originator { get; }
+        public Population Originator { get; }
 
-        public int GetMemorieCount()
+        public Simulation(Population population, int preRender = 0)
         {
-            return mementos.Count;
-        }
+            _mementos = new();
 
-        public Simulation()
-        {
-            mementos = new();
-            Originator = new Population(1000, 10, 50);
+            Originator = population;
+
             Simulate();
             _step = 0;
+            SimulateN(preRender);
+        }
 
-            // SimulateN(1000);
+
+        public void Stats()
+        {
+            long currentTime = _stopwatch.ElapsedMilliseconds;
+
+            long timeSpan = currentTime - lastTimeCheck;
+
+            if (timeSpan >= 1000)
+            {
+                int count = MaxId() - lastCheck;
+
+                Console.WriteLine($"Tick/s {count / (timeSpan / 1000f)}");
+
+
+                lastCheck = MaxId();
+                lastTimeCheck = currentTime;
+            }
         }
 
         public void Simulate()
         {
-            mementos.Add(Originator.People.Clone().ToList());
+            _mementos.Add(Originator.People.Clone().ToList());
             // originator has next step
             Originator.Step();
+            Stats();
         }
 
         private void SimulateN(int count)
@@ -52,7 +74,7 @@ namespace TO_Lab_4
 
         public List<Person> Current()
         {
-            return mementos[_step];
+            return _mementos[_step];
         }
 
         public int CurrentId()
@@ -62,22 +84,30 @@ namespace TO_Lab_4
 
         public int MaxId()
         {
-            return mementos.Count - 1;
+            return _mementos.Count - 1;
         }
 
 
         public void Previous()
         {
-            _step = _step - 1 < 0 ? 0 : _step - 1;
+            if (IsRunning)
+                _step = _step - 1 < 0 ? 0 : _step - 1;
         }
 
         public void Next()
         {
-            _step++;
-            if (mementos.Count < _step + 1)
-            {
-                Simulate();
-            }
+            if (IsRunning)
+                _step = _step + 1 == MaxId() ? _step : _step + 1;
+        }
+
+        public void PlayPause()
+        {
+            IsRunning = !IsRunning;
+        }
+
+        public float GetBound()
+        {
+            return Originator.Bound;
         }
     }
 }

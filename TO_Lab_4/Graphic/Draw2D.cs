@@ -17,7 +17,7 @@ namespace TO_Lab_4.Graphic
 
         public void draw_circle(Vector2 vector, float r, bool fill = false)
         {
-            draw_circle(vector, r, 180, fill);
+            draw_circle(vector, r, 360, fill);
         }
 
         public void draw_circle(Vector2 vector, float r, int quality, bool fill = false)
