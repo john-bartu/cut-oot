@@ -6,9 +6,9 @@ namespace TO_Lab_5.Core
 {
     public class FireStation
     {
-        private string Name { get; }
-        private Vector2 Position { get; }
-        private List<FireTruck> Trucks { get; }
+        public string Name { get; }
+        public Vector2 Position { get; }
+        public List<FireTruck> Trucks { get; }
 
         public FireStation(string name, Vector2 position)
         {
@@ -17,7 +17,7 @@ namespace TO_Lab_5.Core
             
             Trucks = new List<FireTruck>()
             {
-                new (), new (), new (), new ()
+                new (name +"-1"), new (name +"-2"), new (name +"-3"), new (name +"-4")
             };
         }
 

@@ -31,7 +31,12 @@ namespace TO_Lab_5.Vector
 
         public override string ToString()
         {
-            return $"Vector2({X:0.00000},{Y:0.00000})";
+            return $"({X:0.00000},{Y:0.00000})";
+        }
+
+        public double DistanceTo(Vector2 position)
+        {
+            return (position.X - X) * (position.X - X) + (position.Y - Y) * (position.Y - Y);
         }
     }
 }

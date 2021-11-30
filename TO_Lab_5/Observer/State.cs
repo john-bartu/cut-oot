@@ -1,4 +1,4 @@
-namespace TO_Lab_5.Observer.State
+namespace TO_Lab_5.Observer
 {
     public abstract class State
     {
@@ -9,31 +9,36 @@ namespace TO_Lab_5.Observer.State
             this.fireTruck = fireTruck;
         }
 
-        public abstract void HandleFree();
-        public abstract void HandleTravelTo();
-        public abstract void HandleBusy();
-        public abstract void HandleTravelReturn();
+        public void HandleFree(){}
+        public void HandleTravelTo(){}
+        public void HandleBusy(){}
+        public void HandleTravelReturn(){}
     }
 
+    class IdleState : State
+    {
+    
+        
+    }
 
     class BusyState : State
     {
-        public override void HandleFree()
+        public new void HandleFree()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void HandleTravelTo()
+        public new void HandleTravelTo()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void HandleBusy()
+        public new void HandleBusy()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void HandleTravelReturn()
+        public new void HandleTravelReturn()
         {
             throw new System.NotImplementedException();
         }

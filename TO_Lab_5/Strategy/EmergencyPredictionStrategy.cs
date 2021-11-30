@@ -1,39 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TO_Lab_5.Core;
+using TO_Lab_5.Iterator;
+using TO_Lab_5.Observer;
+
 namespace TO_Lab_5.Strategy
 {
-    public interface IEventStrategy
+    public abstract class IEventStrategy
     {
-        int execute();
-    }
-    
-    public class EventMz : IEventStrategy
-    {
-        public int execute()
+        public abstract List<FireTruck> Execute(IIterator<FireTruck> fireTrucks);
+
+        protected List<FireTruck> GetClosest(IIterator<FireTruck> fireTrucks, int count)
         {
-            return 2;
+            List<FireTruck> trucks = new();
+            
+            // Console.WriteLine($"{0} of {count}");
+
+            for (int i = 0; i < count; i++)
+            {
+                FireTruck truck = fireTrucks.getNext();
+                // Console.WriteLine($"{i+1} of {count}");
+                truck.state =  new BusyState();
+                trucks.Add(truck);
+            }
+
+            return trucks;
         }
     }
-    
-    public class EventPz : IEventStrategy
+
+    public class StrategyMZ : IEventStrategy
     {
-        public int execute()
+        public override List<FireTruck> Execute(IIterator<FireTruck> fireTrucks)
         {
-            return 3;
+            return GetClosest(fireTrucks, 5);
         }
     }
-    
-    public class EventAfMz : IEventStrategy
+
+    public class StrategyPZ : IEventStrategy
     {
-        public int execute()
+        public override List<FireTruck> Execute(IIterator<FireTruck> fireTrucks)
         {
-            return 2;
-        }
-    }
-    
-    public class EventAfPz: IEventStrategy
-    {
-        public int execute()
-        {
-            return 3;
+            return GetClosest(fireTrucks, 3);
         }
     }
 }

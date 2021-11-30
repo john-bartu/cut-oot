@@ -2,20 +2,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using TO_Lab_5.Iterator;
+using TO_Lab_5.Observer;
 
 namespace TO_Lab_5.Core
 {
     public class ControlStation
     {
-        private List<FireStation> observators;
+        private readonly List<FireStation> _observators;
 
-        private List<Event> _events;
+        private readonly List<Incident> _incidents;
 
 
         public ControlStation()
         {
-            observators = new List<FireStation>();
+            _observators = new List<FireStation>();
+            _incidents = new List<Incident>();
         }
+
+
+        public async void RegisterIncident(Incident incident)
+        {
+            Console.WriteLine($"ControlStation What's happen? - {incident}");
+
+            var squad = new FireSquad(incident);
+            
+            IIterator<FireTruck> iterator = new ClosestFireTrucksIterator(_observators, incident.Location);
+            
+
+            squad.Step1PrepareTeam(iterator);
+
+            squad.Go();
+        }
+
 
         public void RegisterFireStations(List<FireStation> fireStations)
         {
@@ -24,11 +44,7 @@ namespace TO_Lab_5.Core
                 Console.WriteLine($"ControlStation Registering: {fireStation}");
             }
 
-            observators.AddRange(fireStations);
-        }
-
-        private void Notify(FireStation fireStation)
-        {
+            _observators.AddRange(fireStations);
         }
     }
 }
