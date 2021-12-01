@@ -104,20 +104,20 @@ namespace TO_Lab_4
 
                         if (person.GetDistanceTo2(person2) < 4)
                         {
-                            // if (person.CanInfectedBy(person2))
-                            // {
-                            //     if (!_neighborsDictionary.ContainsKey(neighbors))
-                            //     {
-                            //         // Register newly neighbors
-                            //         _neighborsDictionary[neighbors] = PopulationTime;
-                            //     }
-                            //     // Neighbors registered, so time is ticking
-                            // }
-                            // else
-                            // {
-                            //     // Neighbor has been healed
-                            //     _neighborsDictionary.Remove(neighbors);
-                            // }
+                            if (person.CanInfectedBy(person2))
+                            {
+                                if (!_neighborsDictionary.ContainsKey(neighbors))
+                                {
+                                    // Register newly neighbors
+                                    _neighborsDictionary[neighbors] = PopulationTime;
+                                }
+                                // Neighbors registered, so time is ticking
+                            }
+                            else
+                            {
+                                // Neighbor has been healed
+                                _neighborsDictionary.Remove(neighbors);
+                            }
                         }
                         else
                         {

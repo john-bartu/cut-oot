@@ -100,6 +100,11 @@ namespace TO_Lab_4
                 _step = _step + 1 == MaxId() ? _step : _step + 1;
         }
 
+        public void Set(int id)
+        {
+            _step = id;
+        }
+
         public void PlayPause()
         {
             IsRunning = !IsRunning;

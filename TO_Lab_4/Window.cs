@@ -47,6 +47,14 @@ namespace TO_Lab_4
                 _simulation.PlayPause();
             }
 
+            if (e.Key == Key.R)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    _simulation.Simulate();
+                }
+            }
+
             base.OnKeyDown(e);
         }
 
@@ -75,13 +83,6 @@ namespace TO_Lab_4
                         _simulation.Next();
             }
 
-            if (input.IsKeyDown(Key.R))
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    _simulation.Simulate();
-                }
-            }
 
             if (input.IsKeyDown(Key.Left))
             {
@@ -124,10 +125,10 @@ namespace TO_Lab_4
             {
                 _camera.cameraDelta.X += 1;
             }
-            
+
             _simulation.Simulate();
             Console.WriteLine($"Frame: {_simulation.CurrentId()} / {_simulation.MaxId()}");
-            
+
             base.OnUpdateFrame(e);
         }
 
