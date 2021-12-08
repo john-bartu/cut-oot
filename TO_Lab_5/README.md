@@ -20,7 +20,7 @@
 
 ### UML Diagram
 
-![UML Diagram](TO_LAB_5.png)
+![UML Diagram](TO_LAB_5.svg)
 
 ### Przykład uruchomienia z jednym wydarzeniem
 
@@ -36,16 +36,15 @@ ControlStation Registering: FS(PSP 7 - 4 Trucks)
 ControlStation Registering: FS(Aspir - 4 Trucks)
 ControlStation Registering: FS(LSP - 4 Trucks)
 ControlStation What's happen? - Incident( Car accident with tree)
-1 Squad(7df19cb6) Preparing Team - Incident( Car accident with tree)
-Truck(PSP 2-1),Truck(PSP 2-2),Truck(PSP 2-3) -> Squad(7df19cb6)
-2 Squad(7df19cb6) Travelling To - Incident( Car accident with tree)
-Truck(PSP 2-1),Truck(PSP 2-2),Truck(PSP 2-3) -> Incident( Car accident with tree)
-Press ESC to stop
-3 Squad(7df19cb6) Investigating Incident( Car accident with tree)
+Squad(7df19cb6) Preparing Team - Incident( Car accident with tree)
+Truck(PSP 2-1), Truck(PSP 2-2), Truck(PSP 2-3) -> Squad(7df19cb6)
+Squad(7df19cb6) Travelling To - Incident( Car accident with tree)
+Truck(PSP 2-1), Truck(PSP 2-2), Truck(PSP 2-3) -> Incident( Car accident with tree)
+Squad(7df19cb6) Investigating Incident( Car accident with tree)
 Squad(7df19cb6) Task is Real Incident( Car accident with tree)
 Squad(7df19cb6) doing Incident( Car accident with tree)
-Truck(PSP 2-1),Truck(PSP 2-2),Truck(PSP 2-3) doing Incident( Car accident with tree)
-4 Squad(7df19cb6) sent crew to bases - Incident( Car accident with tree)
-Truck(PSP 2-1),Truck(PSP 2-2),Truck(PSP 2-3) -> Base
+Truck(PSP 2-1), Truck(PSP 2-2), Truck(PSP 2-3) doing Incident( Car accident with tree)
+Squad(7df19cb6) sent crew to bases - Incident( Car accident with tree)
+Truck(PSP 2-1), Truck(PSP 2-2), Truck(PSP 2-3) -> Base
 Squad(7df19cb6) Done - Incident( Car accident with tree)
 ```

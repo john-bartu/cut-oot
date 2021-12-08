@@ -1,6 +1,4 @@
 @startuml TO_LAB_5
-skinparam ClassFontSize 14
-skinparam ClassAttributeFontSize 14
 
 !include .\\puml-classes\CSVParser.puml
 !include .\\puml-classes\ClosestFireTrucksIterator.puml
