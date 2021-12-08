@@ -1,0 +1,32 @@
+@startuml
+abstract class State {
+    # fireTruck : FireTruck
+    + SetContext(newTruck:FireTruck) : void
+    + <<virtual>> HandleFree() : void
+    + <<virtual>> HandleTravelTo() : void
+    + <<virtual>> HandleBusy() : void
+    + <<virtual>> HandleTravelReturn() : void
+    + <<virtual>> HandleWork() : void
+}
+class IdleState {
+    + <<override>> HandleBusy() : void
+}
+class BusyState {
+    + <<override>> HandleTravelTo() : void
+}
+class WorkingState {
+    + <<override>> HandleTravelReturn() : void
+}
+class TravellingFromState {
+    + <<override>> HandleFree() : void
+}
+class TravellingToState {
+    + <<override>> HandleWork() : void
+    + <<override>> HandleTravelReturn() : void
+}
+State <|-D-- IdleState
+State <|-D-- BusyState
+State <|-D-- WorkingState
+State <|-D-- TravellingFromState
+State <|-D-- TravellingToState
+@enduml

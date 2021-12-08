@@ -1,0 +1,13 @@
+@startuml
+class Vector2 {
+    + X : double <<get>>
+    + Y : double <<get>>
+    + Vector2(x:double, y:double)
+    + abs() : double
+    + cdot(param:IVector) : double
+    + getComponents() : double[]
+    + <<override>> ToString() : string
+    + DistanceTo(position:Vector2) : double
+}
+IVector <|-- Vector2
+@enduml

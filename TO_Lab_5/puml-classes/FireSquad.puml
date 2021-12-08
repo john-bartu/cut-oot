@@ -1,0 +1,14 @@
+@startuml
+class FireSquad {
+    - name : string
+    - _strategy : IEventStrategy
+    TrucksString() : string
+    + FireSquad(task:Incident)
+    + Step1PrepareTeam(fireTrucks:IIterator<FireTruck>) : void
+    - <<async>> Step2GoToLocation() : Task
+    - <<async>> Step3Investigate() : Task
+    + <<override>> ToString() : string
+    + <<async>> Go() : void
+    - <<async>> Step4Return() : Task
+}
+@enduml

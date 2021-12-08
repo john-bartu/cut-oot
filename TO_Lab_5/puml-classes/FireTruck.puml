@@ -1,0 +1,14 @@
+@startuml
+class FireTruck {
+    - name : string
+    + state : State
+    + FireTruck(s:string)
+    + <<override>> ToString() : string
+    + TransitionTo(_state:State) : void
+    + HandleFree() : void
+    + HandleTravelTo() : void
+    + HandleBusy() : void
+    + HandleTravelReturn() : void
+    + HandleWork() : void
+}
+@enduml

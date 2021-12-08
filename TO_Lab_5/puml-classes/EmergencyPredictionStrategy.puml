@@ -1,0 +1,14 @@
+@startuml
+abstract class IEventStrategy {
+    + {abstract} Execute(fireTrucks:IIterator<FireTruck>) : List<FireTruck>
+    # GetClosest(fireTrucks:IIterator<FireTruck>, count:int) : List<FireTruck>
+}
+class StrategyMz {
+    + <<override>> Execute() : List<FireTruck>
+}
+class StrategyPz {
+    + <<override>> Execute() : List<FireTruck>
+}
+IEventStrategy <|-- StrategyMz
+IEventStrategy <|-- StrategyPz
+@enduml

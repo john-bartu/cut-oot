@@ -1,0 +1,7 @@
+@startuml
+class FireStation {
+    + Name : string <<get>>
+    + FireStation(name:string, position:Vector2)
+    + <<override>> ToString() : string
+}
+@enduml

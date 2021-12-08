@@ -1,0 +1,19 @@
+@startuml
+class Incident {
+    + Incident()
+    + <<override>> ToString() : string
+    + {static} FirstCharToUpper(input:string) : string
+    - objectName : string[]
+    - RandomName(type:EventType) : string
+    - {static} RandomLocation() : Vector2
+    + Name : String <<get>>
+    + Type : EventType <<get>>
+    + Real : bool <<get>>
+    + Location : Vector2 <<get>>
+}
+enum EventType {
+    PZ,
+    MZ,
+}
+Incident +-- EventType
+@enduml

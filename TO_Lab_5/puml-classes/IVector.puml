@@ -1,0 +1,7 @@
+@startuml
+interface IVector {
+    abs() : double
+    cdot(param:IVector) : double
+    getComponents() : double[]
+}
+@enduml

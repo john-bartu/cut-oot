@@ -1,0 +1,5 @@
+@startuml
+class CSVParser {
+    + {static} LoadStationsFromCSV() : List<FireStation>
+}
+@enduml

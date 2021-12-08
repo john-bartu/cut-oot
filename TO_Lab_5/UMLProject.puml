@@ -1,0 +1,35 @@
+@startuml TO_LAB_5
+!include .\\puml-classes\CSVParser.puml
+!include .\\puml-classes\ClosestFireTrucksIterator.puml
+!include .\\puml-classes\ControlStation.puml
+!include .\\puml-classes\FireSquad.puml
+!include .\\puml-classes\FireStation.puml
+!include .\\puml-classes\Incident.puml
+!include .\\puml-classes\IIterator.puml
+!include .\\puml-classes\FireTruck.puml
+!include .\\puml-classes\State.puml
+!include .\\puml-classes\EmergencyExecutionStrategy.puml
+!include .\\puml-classes\EmergencyPredictionStrategy.puml
+!include .\\puml-classes\IVector.puml
+!include .\\puml-classes\Vector2.puml
+
+class Program{}
+
+Program -- CSVParser : "Uses"
+Program -- Incident : "Creates"
+Program *-- ControlStation
+
+Incident o--- Vector2 : "Has location"
+ControlStation o-- FireStation
+ControlStation o-- Incident
+ControlStation -- ClosestFireTrucksIterator : "Use"
+FireStation "1" o-- "many" FireTruck
+FireSquad "1" o-- "many" FireTruck
+FireSquad "1" o--- "1" Incident
+FireTruck o-- State
+FireSquad o-- IEventStrategy
+FireSquad o-- IExecutionStrategy
+
+@enduml
+
+
