@@ -1,9 +1,12 @@
 @startuml
+
+package Observer{
 class ControlStation {
     - <<readonly>> _observators : List<FireStation>
     - <<readonly>> _incidents : List<Incident>
     + ControlStation()
     + RegisterIncident(incident:Incident) : void
     + RegisterFireStations(fireStations:List<FireStation>) : void
+}
 }
 @enduml

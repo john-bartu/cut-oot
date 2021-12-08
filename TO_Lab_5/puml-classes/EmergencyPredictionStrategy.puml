@@ -1,4 +1,6 @@
 @startuml
+
+package EventStrategy{
 abstract class IEventStrategy {
     + {abstract} Execute(fireTrucks:IIterator<FireTruck>) : List<FireTruck>
     # GetClosest(fireTrucks:IIterator<FireTruck>, count:int) : List<FireTruck>
@@ -11,4 +13,5 @@ class StrategyPz {
 }
 IEventStrategy <|-- StrategyMz
 IEventStrategy <|-- StrategyPz
+}
 @enduml

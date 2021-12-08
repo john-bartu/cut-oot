@@ -1,4 +1,6 @@
 @startuml
+package ExecutionStrategy{
+
 interface IExecutionStrategy {
     execute() : float
 }
@@ -10,4 +12,6 @@ class Fake {
 }
 IExecutionStrategy <|-- Emergency
 IExecutionStrategy <|-- Fake
+
+}
 @enduml

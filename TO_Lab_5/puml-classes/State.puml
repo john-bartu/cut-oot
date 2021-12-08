@@ -1,4 +1,6 @@
 @startuml
+
+package StateMachine{
 abstract class State {
     # fireTruck : FireTruck
     + SetContext(newTruck:FireTruck) : void
@@ -29,4 +31,7 @@ State <|-D-- BusyState
 State <|-D-- WorkingState
 State <|-D-- TravellingFromState
 State <|-D-- TravellingToState
+
+
+}
 @enduml

@@ -1,4 +1,6 @@
 @startuml
+
+
 class FireTruck {
     - name : string
     + state : State
@@ -11,4 +13,5 @@ class FireTruck {
     + HandleTravelReturn() : void
     + HandleWork() : void
 }
+
 @enduml

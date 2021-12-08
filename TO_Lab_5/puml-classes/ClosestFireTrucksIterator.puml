@@ -1,8 +1,12 @@
 @startuml
+
+package Iterator{
 class ClosestFireTrucksIterator {
     - _fireStations : List<FireStation>
     + hasNext() : bool
     + getNext() : FireTruck
 }
 "IIterator`1" "<FireTruck>" <|-- ClosestFireTrucksIterator
+
+}
 @enduml

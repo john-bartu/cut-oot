@@ -9,7 +9,7 @@ namespace TO_Lab_5.Core
         {
             Type = Random.Shared.NextSingle() <= 0.70 ? EventType.MZ : EventType.PZ;
             Name = RandomName(Type);
-            Real = Random.Shared.NextSingle() <= 0.90;
+            Real = Random.Shared.NextSingle() <= 0.95;
             Location = RandomLocation();
         }
 

@@ -17,7 +17,7 @@ namespace TO_Lab_5.Core
             
             Trucks = new List<FireTruck>()
             {
-                new (name +"-1"), new (name +"-2"), new (name +"-3"), new (name +"-4")
+                new (name +"-1"), new (name +"-2"), new (name +"-3"), new (name +"-4"), new (name +"-5")
             };
         }
 

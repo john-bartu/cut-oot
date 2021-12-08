@@ -31,6 +31,8 @@ FireTruck o-- State
 FireSquad o-- IEventStrategy
 FireSquad o-- IExecutionStrategy
 
+
+
 @enduml
 
 

@@ -2,6 +2,36 @@
 
 ## ZADANIE LABORATORYJNE
 
+Przyjmijmy uproszczony model dysponowania jednostek Państwowej Straży Pożarnej na ob-
+szarze miasta Krakowa.
+
+Pod nadzorem Stanowiska Kierowania Komendanta Miejskiego w Krakowie (SKKM) znajduje
+się siedem ponumerowanych jednostek ratowniczo-ga śniczych (JRG-1:JRG-7), JRG Szkoły Aspi-
+rantów PSP, JRG Skawina oraz LSP Lotniska w Balicach. Dla uproszczenia modelu problemu
+przyjmijmy, że każda jednostka posiada 5 samochodów, które mogą być dysponowane do zdarzeń,
+niezależnie od ich charakteru.
+
+Do SKKM co jaki ś czas drogą telefoniczną napływają zgłoszenia różnych zdarzeń takich jak:
+pożary (PZ), alarmy fałszywe (AF) oraz inne miejscowe zagrożenia (MZ). 70 procent zgłoszeń
+dotyczy miejscowych zagrożeń, a 30 procent pożarów. Na potrzeby tego modelu przyjmijmy,że
+dowolne zdarzenie charakteryzuje się rodzajem (PZ, AF, MZ) oraz jego położeniem (współrzędne
+geograficzne w stopniach dziesiętnych układu WGS-84).
+
+SKKM powiadamia o zdarzeniu jednostki jej podległe o zaistnieniu zdarzenia. W przypadku
+charakteru PZ wyjeżdżają trzy samochody, a MZ dwa (z jednostki znajdującej się najbliżej miejsca
+zdarzenia). W momencie wyjazdu do zdarzenia samochody zmieniają swój stan z wolnego na
+zajęty, do momentu zakończenia działań i powrotu do jednostki macierzystej. Tylko samochody
+w stanie wolnym mogą zostać zadysponowane do zdarzenia. W momencie, w którym w na-
+jbliższej miejscu zdarzenia jednostce braknie wolnych pojazdów, dysponowane są te z kolejnych
+najbliższych jednostek.
+
+Po dojeździe na miejsce zdarzenia (losowy czas 0-3s) zdarzenie może okazać się alarmem fałszy-
+wym (prawdopodobienstwo 5 procent). W sytuacji alarmu fałszywego samochody automatycznie
+powracają do swoich jednostek (losowy czas dojazdu 0-3s). W przypadku przeciwnym, pode-
+jmują działania, które trwają losowy czas w przedziale (5-25s), po czym wracają do swoich
+jednostek (losowy czas dojazdu 0-3s). Po powrocie ich stan ustawiany jest na wolny.
+
+
 ## Rozwiązanie:
 
 ### Opis rozwiązania:
@@ -26,16 +56,16 @@
 ### Przykład uruchomienia z jednym wydarzeniem
 
 ```css
-ControlStation Registering: FS(Skawina - 4 Trucks)
-ControlStation Registering: FS(PSP 1 - 4 Trucks)
-ControlStation Registering: FS(PSP 2 - 4 Trucks)
-ControlStation Registering: FS(PSP 3 - 4 Trucks)
-ControlStation Registering: FS(PSP 4 - 4 Trucks)
-ControlStation Registering: FS(PSP 5 - 4 Trucks)
-ControlStation Registering: FS(PSP 6 - 4 Trucks)
-ControlStation Registering: FS(PSP 7 - 4 Trucks)
-ControlStation Registering: FS(Aspir - 4 Trucks)
-ControlStation Registering: FS(LSP - 4 Trucks)
+ControlStation Registering: FS(Skawina - 5 Trucks)
+ControlStation Registering: FS(PSP 1 - 5 Trucks)
+ControlStation Registering: FS(PSP 2 - 5 Trucks)
+ControlStation Registering: FS(PSP 3 - 5 Trucks)
+ControlStation Registering: FS(PSP 4 - 5 Trucks)
+ControlStation Registering: FS(PSP 5 - 5 Trucks)
+ControlStation Registering: FS(PSP 6 - 5 Trucks)
+ControlStation Registering: FS(PSP 7 - 5 Trucks)
+ControlStation Registering: FS(Aspir - 5 Trucks)
+ControlStation Registering: FS(LSP - 5 Trucks)
 ControlStation What's happen? - Incident( Car accident with tree)
 Squad(7df19cb6) Preparing Team - Incident( Car accident with tree)
 Truck(PSP 2-1), Truck(PSP 2-2), Truck(PSP 2-3) -> Squad(7df19cb6)
