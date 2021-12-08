@@ -14,7 +14,7 @@ namespace TO_Lab_5.Core
         private IEventStrategy _strategy;
         private Incident task;
 
-        string trucksString()
+        string TrucksString()
         {
             return String.Join(",", _trucks);
         }
@@ -27,9 +27,9 @@ namespace TO_Lab_5.Core
             this.task = task;
 
             if (task.Type == Incident.EventType.MZ)
-                _strategy = new StrategyMZ();
+                _strategy = new StrategyMz();
             else if (task.Type == Incident.EventType.PZ)
-                _strategy = new StrategyPZ();
+                _strategy = new StrategyPz();
             else
                 throw new Exception("Unrecognized incident type");
         }
@@ -40,7 +40,7 @@ namespace TO_Lab_5.Core
 
             _trucks = _strategy.Execute(fireTrucks);
 
-            Console.WriteLine($"{trucksString()} -> {this}");
+            Console.WriteLine($"{TrucksString()} -> {this}");
         }
 
         private async Task Step2GoToLocation()
@@ -49,10 +49,10 @@ namespace TO_Lab_5.Core
 
             foreach (var fireTruck in _trucks)
             {
-                fireTruck.state = new TravellingState();
+                fireTruck.HandleTravelTo();
             }
 
-            Console.WriteLine($"{trucksString()} -> {task}");
+            Console.WriteLine($"{TrucksString()} -> {task}");
             await Task.Delay(Random.Shared.Next(3000));
         }
 
@@ -67,10 +67,10 @@ namespace TO_Lab_5.Core
 
                 foreach (var fireTruck in _trucks)
                 {
-                    fireTruck.state = new BusyState();
+                    fireTruck.HandleWork();
                 }
 
-                Console.WriteLine($"{trucksString()} doing {task}");
+                Console.WriteLine($"{TrucksString()} doing {task}");
 
                 await Task.Delay(Random.Shared.Next(20000) +5000);
             }
@@ -96,20 +96,24 @@ namespace TO_Lab_5.Core
 
         private async Task Step4Return()
         {
-            Console.WriteLine($"4 {this} Getting Back From - {task}");
+            Console.WriteLine($"4 {this} sent crew to bases - {task}");
 
+            
+            foreach (var fireTruck in _trucks)
+            {
+                fireTruck.HandleTravelReturn();
+            }
+            
             await Task.Delay(Random.Shared.Next(3000));
 
             foreach (var fireTruck in _trucks)
             {
-                fireTruck.state = new IdleState();
+                fireTruck.HandleFree();
             }
             
-            Console.WriteLine($"{trucksString()} -> Base");
+            Console.WriteLine($"{TrucksString()} -> Base");
         }
     }
 
-    public class TravellingState : State
-    {
-    }
+    
 }

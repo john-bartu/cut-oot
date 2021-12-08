@@ -14,14 +14,11 @@ namespace TO_Lab_5.Strategy
         protected List<FireTruck> GetClosest(IIterator<FireTruck> fireTrucks, int count)
         {
             List<FireTruck> trucks = new();
-            
-            // Console.WriteLine($"{0} of {count}");
 
             for (int i = 0; i < count; i++)
             {
                 FireTruck truck = fireTrucks.getNext();
-                // Console.WriteLine($"{i+1} of {count}");
-                truck.state =  new BusyState();
+                truck.HandleBusy();
                 trucks.Add(truck);
             }
 
@@ -29,19 +26,19 @@ namespace TO_Lab_5.Strategy
         }
     }
 
-    public class StrategyMZ : IEventStrategy
-    {
-        public override List<FireTruck> Execute(IIterator<FireTruck> fireTrucks)
-        {
-            return GetClosest(fireTrucks, 5);
-        }
-    }
-
-    public class StrategyPZ : IEventStrategy
+    public class StrategyMz : IEventStrategy
     {
         public override List<FireTruck> Execute(IIterator<FireTruck> fireTrucks)
         {
             return GetClosest(fireTrucks, 3);
+        }
+    }
+
+    public class StrategyPz : IEventStrategy
+    {
+        public override List<FireTruck> Execute(IIterator<FireTruck> fireTrucks)
+        {
+            return GetClosest(fireTrucks, 2);
         }
     }
 }

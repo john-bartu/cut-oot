@@ -1,46 +1,88 @@
+using System;
+using System.Threading.Tasks;
+
 namespace TO_Lab_5.Observer
 {
     public abstract class State
     {
         protected FireTruck fireTruck;
 
-        public void SetContext(FireTruck fireTruck)
+        public  void SetContext(FireTruck newTruck)
         {
-            this.fireTruck = fireTruck;
+            fireTruck = newTruck;
         }
 
-        public void HandleFree(){}
-        public void HandleTravelTo(){}
-        public void HandleBusy(){}
-        public void HandleTravelReturn(){}
+        public virtual void HandleFree()
+        {
+            throw new Exception("Can't become released" + fireTruck.state);
+        }
+
+        public virtual void HandleTravelTo()
+        {
+            throw new Exception("Can't become travelling to" + fireTruck.state);
+        }
+
+        public virtual void HandleBusy()
+        {
+            throw new Exception("Can't become busy"+ fireTruck.state);
+        }
+
+        public virtual void HandleTravelReturn()
+        {
+            throw new Exception("Can't become travelling back"+ fireTruck.state);
+        }
+        
+        public virtual void HandleWork()
+        {
+            throw new Exception("Can't become working"+ fireTruck.state);
+        }
     }
 
     class IdleState : State
     {
-    
-        
+        public override void HandleBusy()
+        {
+            fireTruck.TransitionTo( new BusyState());
+        }
     }
 
     class BusyState : State
     {
-        public new void HandleFree()
+        public override void HandleTravelTo()
         {
-            throw new System.NotImplementedException();
+            fireTruck.TransitionTo( new TravellingToState());
         }
-
-        public new void HandleTravelTo()
+    }
+    
+    public class WorkingState : State
+    {
+        public override void HandleTravelReturn()
         {
-            throw new System.NotImplementedException();
+            fireTruck.TransitionTo( new TravellingFromState());
+            
         }
+    }
 
-        public new void HandleBusy()
+
+    public class TravellingFromState : State
+    {
+        public override void HandleFree()
         {
-            throw new System.NotImplementedException();
+            fireTruck.TransitionTo(new IdleState());
         }
+    }
 
-        public new void HandleTravelReturn()
+    public class TravellingToState : State
+    {
+        public override void HandleWork()
         {
-            throw new System.NotImplementedException();
+            
+            fireTruck.TransitionTo( new WorkingState());
+        }
+        
+        public override void HandleTravelReturn()
+        {
+            fireTruck.TransitionTo( new TravellingFromState());
         }
     }
 }

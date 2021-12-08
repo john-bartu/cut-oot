@@ -22,7 +22,7 @@ namespace TO_Lab_5.Core
         }
 
 
-        public async void RegisterIncident(Incident incident)
+        public void RegisterIncident(Incident incident)
         {
             Console.WriteLine($"ControlStation What's happen? - {incident}");
 
@@ -30,7 +30,6 @@ namespace TO_Lab_5.Core
             
             IIterator<FireTruck> iterator = new ClosestFireTrucksIterator(_observators, incident.Location);
             
-
             squad.Step1PrepareTeam(iterator);
 
             squad.Go();
