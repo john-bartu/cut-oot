@@ -20,6 +20,7 @@
 
 ### UML Diagram
 
+[Link Do UML w osobnej karcie z możliwością zoomowania](https://raw.githubusercontent.com/john-bartu/cut-oot/master/TO_Lab_5/TO_LAB_5.svg)
 ![UML Diagram](TO_LAB_5.svg)
 
 ### Przykład uruchomienia z jednym wydarzeniem
