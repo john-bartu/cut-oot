@@ -16,7 +16,11 @@
   * dojeżdza na miejsce zdażenia
   * następnie sprawdza `Incident.Real` i w zależności od Typu wybiera `IExecutionStrategy` - automatyczny powrót, lub działanie jeżeli zagrożenie jest prawdziwe
   * po zakończeniu pojazdy wracają do bazy z `IdleStatus`
-* ![UML Diagram](TO_LAB_5.png)
+
+
+### UML Diagram
+
+![UML Diagram](TO_LAB_5.png)
 
 ### Przykład uruchomienia z jednym wydarzeniem
 

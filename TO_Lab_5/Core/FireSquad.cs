@@ -16,7 +16,7 @@ namespace TO_Lab_5.Core
 
         string TrucksString()
         {
-            return String.Join(",", _trucks);
+            return String.Join(", ", _trucks);
         }
 
         public FireSquad(Incident task)
