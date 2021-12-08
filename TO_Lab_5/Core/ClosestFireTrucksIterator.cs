@@ -9,11 +9,16 @@ namespace TO_Lab_5.Core
 {
     class ClosestFireTrucksIterator : IIterator<FireTruck>
     {
-        private List<FireStation> _fireStations;
+        private List<FireTruck> _fireTrucks;
+        private readonly Vector2 _targetLocation;
+        private readonly ISubject _controlStation;
 
-        public ClosestFireTrucksIterator(List<FireStation> fireStations, Vector2 position)
+        public ClosestFireTrucksIterator(ISubject fireStation, Vector2 position)
         {
-            _fireStations = fireStations.OrderBy(station => station.Position.DistanceTo(position)).ToList();
+            _fireTrucks = new List<FireTruck>();
+            _controlStation = fireStation;
+            _targetLocation = position;
+            RefreshIterator();
         }
 
         public bool hasNext()
@@ -21,21 +26,25 @@ namespace TO_Lab_5.Core
             throw new NotImplementedException();
         }
 
+        void RefreshIterator()
+        {
+            _fireTrucks =
+                _controlStation.Notify()
+                    .OrderBy(station => station.position
+                        .DistanceTo(_targetLocation))
+                    .ToList();
+        }
+
         public FireTruck getNext()
         {
-
             while (true)
             {
-                foreach (var station in _fireStations)
+                foreach (var truck in _fireTrucks)
                 {
-                    foreach (var truck in station.Trucks)
-                    {
-                        if (truck.state is IdleState)
-                        {
-                            return truck;
-                        }
-                    }
+                    return truck;
                 }
+
+                RefreshIterator();
             }
         }
     }

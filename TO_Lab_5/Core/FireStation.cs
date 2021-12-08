@@ -4,7 +4,7 @@ using TO_Lab_5.Vector;
 
 namespace TO_Lab_5.Core
 {
-    public class FireStation
+    public class FireStation : IObserver
     {
         public string Name { get; }
         public Vector2 Position { get; }
@@ -14,16 +14,29 @@ namespace TO_Lab_5.Core
         {
             Name = name;
             Position = position;
-            
+
             Trucks = new List<FireTruck>()
             {
-                new (name +"-1"), new (name +"-2"), new (name +"-3"), new (name +"-4"), new (name +"-5")
+                new(name + "-1",position), new(name + "-2",position), new(name + "-3",position), new(name + "-4",position), new(name + "-5",position)
             };
         }
 
         public override string ToString()
         {
             return $"FS({Name} - {Trucks.Count} Trucks)";
+        }
+
+        public List<FireTruck> SignalNewIncident()
+        {
+            var response = new List<FireTruck>();
+            
+            foreach (var truck in Trucks)
+            {
+                if (truck.state is IdleState)
+                    response.Add(truck);
+            }
+
+            return response;
         }
     }
 }

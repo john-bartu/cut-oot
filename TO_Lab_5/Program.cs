@@ -6,7 +6,8 @@ using TO_Lab_5;
 using TO_Lab_5.Core;
 
 ControlStation controlStation = new();
-controlStation.RegisterFireStations(CSVParser.LoadStationsFromCSV());
+controlStation.RegisterStations(CSVParser.LoadStationsFromCSV());
+controlStation.RegisterIncident(new Incident());
 controlStation.RegisterIncident(new Incident());
 Console.WriteLine("Press ESC to stop");
 do

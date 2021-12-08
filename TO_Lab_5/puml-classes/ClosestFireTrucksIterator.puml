@@ -2,7 +2,11 @@
 
 package Iterator{
 class ClosestFireTrucksIterator {
-    - _fireStations : List<FireStation>
+    - _fireTrucks : List<FireTruck>
+    - _targetLocation : Vector2
+    - _controlStation : List<ISubject>
+    
+    - RefreshIterator()
     + hasNext() : bool
     + getNext() : FireTruck
 }

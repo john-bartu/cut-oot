@@ -1,0 +1,12 @@
+@startuml
+package Observer{
+    interface IObserver{
+       - SignalNewIncident() : List<FireTruck>
+    }
+    
+    interface ISubject {
+       - Attach(IObserver observer) : void
+       - Notify() : List<FireTruck>
+    }
+}
+@enduml

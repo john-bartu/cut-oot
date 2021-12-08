@@ -8,16 +8,16 @@ using TO_Lab_5.Observer;
 
 namespace TO_Lab_5.Core
 {
-    public class ControlStation
+    public class ControlStation : ISubject
     {
-        private readonly List<FireStation> _observators;
+        private readonly List<IObserver> _observators;
 
         private readonly List<Incident> _incidents;
 
 
         public ControlStation()
         {
-            _observators = new List<FireStation>();
+            _observators = new List<IObserver>();
             _incidents = new List<Incident>();
         }
 
@@ -27,23 +27,38 @@ namespace TO_Lab_5.Core
             Console.WriteLine($"ControlStation What's happen? - {incident}");
 
             var squad = new FireSquad(incident);
-            
-            IIterator<FireTruck> iterator = new ClosestFireTrucksIterator(_observators, incident.Location);
-            
+
+            IIterator<FireTruck> iterator = new ClosestFireTrucksIterator(this, incident.Location);
+
             squad.Step1PrepareTeam(iterator);
 
             squad.Go();
         }
 
-
-        public void RegisterFireStations(List<FireStation> fireStations)
+        public void RegisterStations(List<FireStation> fireStations)
         {
             foreach (var fireStation in fireStations)
             {
                 Console.WriteLine($"ControlStation Registering: {fireStation}");
+                Attach(fireStation);
+            }
+        }
+
+        public void Attach(IObserver observer)
+        {
+            _observators.Add(observer);
+        }
+
+        public List<FireTruck> Notify()
+        {
+            List<FireTruck> trucks = new();
+
+            foreach (var observer in _observators)
+            {
+                trucks.AddRange(observer.SignalNewIncident());
             }
 
-            _observators.AddRange(fireStations);
+            return trucks;
         }
     }
 }

@@ -1,10 +1,12 @@
 @startuml
 
 package Observer{
-class FireStation {
-    + Name : string <<get>>
-    + FireStation(name:string, position:Vector2)
-    + <<override>> ToString() : string
+    class FireStation {
+        + Name : string <<get>>
+        + FireStation(name:string, position:Vector2)
+        + <<override>> ToString() : string
+    }
 }
-}
+
+FireStation --> IObserver
 @enduml

@@ -1,6 +1,8 @@
 @startuml
+
 interface "IIterator`1"<out T> {
     hasNext() : bool
     getNext() : T
 }
+
 @enduml
