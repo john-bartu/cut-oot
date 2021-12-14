@@ -1,0 +1,46 @@
+@startuml
+class Oskar
+class Eugeniusz
+class Boczar
+class Karol
+class Artem
+class Szcześniak
+class Jan
+class Filip
+class Zubek
+class Jarosz
+class Tomasz
+class Bojanowski
+class Waligóra
+class Rutecki
+class Kocjan
+class Marcol
+class Marcin
+class Szymon
+Oskar -> Eugeniusz
+Eugeniusz --> Oskar
+Oskar -> Boczar
+Karol --> Artem
+Artem --> Artem
+Artem --> Szcześniak
+Jan -> Filip
+Filip -> Zubek
+Zubek --> Boczar
+Boczar -> Jarosz
+Tomasz --> Artem
+Artem -> Bojanowski
+Karol --> Waligóra
+Waligóra -> Rutecki
+Rutecki --> Zubek
+Jan --> Rutecki
+Karol --> Szcześniak
+Karol -> Artem
+Artem --> Kocjan
+Kocjan -> Marcol
+Filip -> Jarosz
+Jarosz --> Waligóra
+Eugeniusz -> Marcin
+Marcin -> Karol
+Karol -> Szcześniak
+Szymon -> Boczar
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Tools {
+    + {static} RandomArrow() : string
+}
+@enduml

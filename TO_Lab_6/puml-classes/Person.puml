@@ -1,0 +1,12 @@
+@startuml
+class Person {
+    + Name : NamePart
+    + Coordinate : Vector2
+    + Person(name:NamePart, coordinate:Vector2)
+    + GetName() : NamePart
+    + Person(name:NamePart)
+    + {static} RandomLocation() : Vector2
+    + ToStringId() : string
+    + <<override>> ToString() : string
+}
+@enduml

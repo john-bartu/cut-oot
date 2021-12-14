@@ -1,0 +1,12 @@
+@startuml
+class Vector2 {
+    + X : double
+    + Y : double
+    + Vector2(x:double, y:double)
+    + abs() : double
+    + cdot(param:IVector) : double
+    + getComponents() : double[]
+    + <<override>> ToString() : string
+}
+IVector <|-L- Vector2
+@enduml

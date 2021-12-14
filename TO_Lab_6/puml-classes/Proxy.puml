@@ -1,0 +1,10 @@
+@startuml
+interface "ISubject"<T> {
+    + Operation(subject:T) : T
+}
+class CorrectedFlyweightFactory {
+    - _flyweightFactory : FlyweightFactory<string>
+    + CorrectedFlyweightFactory(flyweightFactory:FlyweightFactory<string>)
+    + Operation(subject:string) : Flyweight<string>
+}
+@enduml

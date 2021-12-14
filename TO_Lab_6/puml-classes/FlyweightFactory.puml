@@ -1,0 +1,8 @@
+@startuml
+class "FlyweightFactory"<T> {
+    + FlyweightFactory()
+    + Flyweights : List<Flyweight<T>>
+    + GetFlyweight(state:T) : Flyweight<T>
+    + GetFlyweights() : IEnumerable
+}
+@enduml

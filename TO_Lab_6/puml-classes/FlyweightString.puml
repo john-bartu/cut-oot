@@ -1,0 +1,12 @@
+@startuml
+interface "IFlyweight"<T> {
+    + GetState() : T
+}
+class "Flyweight"<T> {
+    + State : T
+    + Flyweight(state:T)
+    + GetState() : T
+    + <<override>> ToString() : string
+}
+"IFlyweight" "<T>" <|-L- "Flyweight"
+@enduml

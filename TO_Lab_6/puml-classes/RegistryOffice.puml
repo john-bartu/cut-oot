@@ -1,0 +1,12 @@
+@startuml
+class RegistryOffice {
+    + _nameRegistry : FlyweightFactory<string>
+    + _persons : List<Person>
+    + RegistryOffice()
+    + RegisterPerson(name:string, coord:Vector2) : void
+    + ListWithMemory() : void
+    + ExportMemoryTree() : void
+    + Export(fileName:string) : void
+    + {static} Import(fileName:string) : RegistryOffice
+}
+@enduml

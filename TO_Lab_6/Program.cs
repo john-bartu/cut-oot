@@ -1,7 +1,5 @@
 ﻿using TO_Lab_6;
 
-Console.WriteLine("Hello, World!");
-
 RegistryOffice registryOffice = new RegistryOffice();
 
 

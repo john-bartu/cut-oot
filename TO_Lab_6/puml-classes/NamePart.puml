@@ -1,0 +1,13 @@
+@startuml
+class NamePart {
+    + Text : Flyweight<string>
+    + Next : NamePart?
+    + NamePart(text:Flyweight<string>)
+    + GetPart() : Flyweight<string>
+    + GetNext() : NamePart?
+    + SetNext(nextPart:NamePart?) : void
+    + <<override>> ToString() : string
+    + ToStringId() : string
+    + HasNext() : bool
+}
+@enduml

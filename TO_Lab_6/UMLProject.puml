@@ -1,0 +1,30 @@
+@startuml
+!include .\\puml-classes\\Tools.puml
+!include .\\puml-classes\\FlyweightFactory.puml
+!include .\\puml-classes\\FlyweightString.puml
+!include .\\puml-classes\\NamePart.puml
+!include .\\puml-classes\\Person.puml
+!include .\\puml-classes\\RegistryOffice.puml
+!include .\\puml-classes\\Proxy.puml
+!include .\\puml-classes\\IVector.puml
+!include .\\puml-classes\\Vector2.puml
+
+class Program
+
+Program o- RegistryOffice
+
+RegistryOffice o- FlyweightFactory
+RegistryOffice o-- Person
+RegistryOffice --- Tools : Uses
+RegistryOffice - CorrectedFlyweightFactory
+FlyweightFactory o- NamePart
+Person o-- NamePart
+NamePart -> Flyweight
+CorrectedFlyweightFactory --u-|> ISubject
+CorrectedFlyweightFactory o- FlyweightFactory
+
+Person *- Vector2
+
+
+
+@enduml
