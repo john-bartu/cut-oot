@@ -4,8 +4,8 @@ namespace TO_Lab_5.Vector
 {
     public class Vector2 : IVector
     {
-        public double X { get; }
-        public double Y { get; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         public Vector2(double x, double y)
         {
@@ -32,11 +32,6 @@ namespace TO_Lab_5.Vector
         public override string ToString()
         {
             return $"({X:0.00000},{Y:0.00000})";
-        }
-
-        public double DistanceTo(Vector2 position)
-        {
-            return (position.X - X) * (position.X - X) + (position.Y - Y) * (position.Y - Y);
         }
     }
 }

@@ -4,20 +4,25 @@ namespace TO_Lab_6
     {
         public T GetState();
     }
-    
-    
+
+
     public class Flyweight<T> : IFlyweight<T>
     {
-        private readonly T _state;
+        public T State { get; set; }
 
         public Flyweight(T state)
         {
-            _state = state;
+            State = state;
         }
 
         public T GetState()
         {
-            return _state;
+            return State;
+        }
+
+        public override string ToString()
+        {
+            return State!.ToString()!;
         }
     }
 }

@@ -7,9 +7,17 @@ namespace TO_Lab_6.Proxy
         public T Operation(T subject);
     }
 
-    class NameChecker : ISubject<string>
+
+    class CorrectedFlyweightFactory
     {
-        public string Operation(string subject)
+        private readonly FlyweightFactory<string> _flyweightFactory;
+
+        public CorrectedFlyweightFactory(FlyweightFactory<string> flyweightFactory)
+        {
+            _flyweightFactory = flyweightFactory;
+        }
+
+        public Flyweight<string> Operation(string subject)
         {
             if (string.IsNullOrEmpty(subject))
             {
@@ -18,9 +26,9 @@ namespace TO_Lab_6.Proxy
 
             string subjectCorrect = char.ToUpper(subject[0]) + subject.Substring(1).ToLower();
 
-            //Console.WriteLine($"Name fixing {subject,16} => {subjectCorrect,16}");
+            Console.WriteLine($"Name fixing {subject,16} => {subjectCorrect,16}");
 
-            return subjectCorrect;
+            return _flyweightFactory.GetFlyweight(subjectCorrect);
         }
     }
 }
