@@ -8,7 +8,7 @@ namespace TO_Lab_6
     
     public class Flyweight<T> : IFlyweight<T>
     {
-        private T _state;
+        private readonly T _state;
 
         public Flyweight(T state)
         {
